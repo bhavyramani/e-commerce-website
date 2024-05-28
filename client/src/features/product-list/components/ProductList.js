@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  increment,
-  incrementAsync,
-  selectCount,
+  fetchAllProductsAsync,
+  fetchProductsByFiltersAsync,
+  selectAllProducts
 } from '../ProductSlice';
 
 import { Fragment } from 'react'
@@ -20,41 +20,55 @@ import {
   Transition,
   TransitionChild,
 } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
+import { StarIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import { Link } from 'react-router-dom';
+import { handler } from '@tailwindcss/aspect-ratio';
 
 const sortOptions = [
-  { name: 'Most Popular', href: '#', current: true },
-  { name: 'Best Rating', href: '#', current: false },
-  { name: 'Newest', href: '#', current: false },
-  { name: 'Price: Low to High', href: '#', current: false },
-  { name: 'Price: High to Low', href: '#', current: false },
+  { name: 'Best Rating', sort: 'rating', order:'desc', current: false },
+  { name: 'Price: Low to High', sort: 'price', order:'asc', current: false },
+  { name: 'Price: High to Low', sort: 'price', order:'desc', current: false },
 ]
 
 const filters = [
   {
-    id: 'color',
-    name: 'Color',
+    id: 'brand',
+    name: 'Brands',
     options: [
-      { value: 'white', label: 'White', checked: false },
-      { value: 'beige', label: 'Beige', checked: false },
-      { value: 'blue', label: 'Blue', checked: true },
-      { value: 'brown', label: 'Brown', checked: false },
-      { value: 'green', label: 'Green', checked: false },
-      { value: 'purple', label: 'Purple', checked: false },
+      { value: 'Essence', label: 'Essence', checked: false },
+      { value: 'Glamour Beauty', label: 'Glamour Beauty', checked: false },
+      { value: 'Velvet Touch', label: 'Velvet Touch', checked: false },
+      { value: 'Chic Cosmetics', label: 'Chic Cosmetics', checked: false },
+      { value: 'Nail Couture', label: 'Nail Couture', checked: false },
+      { value: 'Calvin Klein', label: 'Calvin Klein', checked: false },
+      { value: 'Chanel', label: 'Chanel', checked: false },
+      { value: 'Dior', label: 'Dior', checked: false },
+      {
+        value: 'Dolce & Gabbana',
+        label: 'Dolce & Gabbana',
+        checked: false
+      },
+      { value: 'Gucci', label: 'Gucci', checked: false },
+      {
+        value: 'Annibale Colombo',
+        label: 'Annibale Colombo',
+        checked: false
+      },
+      { value: 'Furniture Co.', label: 'Furniture Co.', checked: false },
+      { value: 'Knoll', label: 'Knoll', checked: false },
+      { value: 'Bath Trends', label: 'Bath Trends', checked: false },
     ],
   },
   {
     id: 'category',
     name: 'Category',
     options: [
-      { value: 'new-arrivals', label: 'New Arrivals', checked: false },
-      { value: 'sale', label: 'Sale', checked: false },
-      { value: 'travel', label: 'Travel', checked: true },
-      { value: 'organization', label: 'Organization', checked: false },
-      { value: 'accessories', label: 'Accessories', checked: false },
+      { value: 'beauty', label: 'beauty', checked: false },
+      { value: 'fragrances', label: 'fragrances', checked: false },
+      { value: 'furniture', label: 'furniture', checked: false },
+      { value: 'groceries', label: 'groceries', checked: false }
     ],
   },
   {
@@ -66,7 +80,7 @@ const filters = [
       { value: '12l', label: '12L', checked: false },
       { value: '18l', label: '18L', checked: false },
       { value: '20l', label: '20L', checked: false },
-      { value: '40l', label: '40L', checked: true },
+      { value: '40l', label: '40L', checked: false },
     ],
   },
 ]
@@ -75,50 +89,33 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-const products = [
-  {
-    id: 1,
-    name: 'Basic Tee',
-    href: '#',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: '$35',
-    color: 'Black',
-  },
-  {
-    id: 1,
-    name: 'Basic Tee',
-    href: '#',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: '$35',
-    color: 'Black',
-  },
-  {
-    id: 1,
-    name: 'Basic Tee',
-    href: '#',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: '$35',
-    color: 'Black',
-  },
-  {
-    id: 1,
-    name: 'Basic Tee',
-    href: '#',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: '$35',
-    color: 'Black',
-  },
-
-]
 
 export default function ProductList() {
-  const count = useSelector(selectCount);
+
   const dispatch = useDispatch();
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const products = useSelector(selectAllProducts);
+  const [filter, setFilter] = useState({});
+
+  const handleFilter = (e, section, option) => {
+    const newFilter = {...filter, [section.id]:option.value};
+    setFilter(newFilter);
+    // console.log(newFilter);
+    dispatch(fetchProductsByFiltersAsync(filter));
+  };
+
+  const handleSort = (e, option) => {
+    const newFilter = {...filter, _sort:option.sort, _order:option.order};
+    setFilter(newFilter);
+    console.log(newFilter);
+    dispatch(fetchProductsByFiltersAsync(filter));
+
+  };
+
+  useEffect(() => {
+    dispatch(fetchProductsByFiltersAsync(filter));
+  }, [filter]);
+
 
   return (
     <div className="bg-white">
@@ -188,6 +185,7 @@ export default function ProductList() {
                                       defaultValue={option.value}
                                       type="checkbox"
                                       defaultChecked={option.checked}
+                                      onChange={e => handleFilter(e, section, option)}
                                       className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                     />
                                     <label
@@ -240,8 +238,8 @@ export default function ProductList() {
                       {sortOptions.map((option) => (
                         <MenuItem key={option.name}>
                           {({ focus }) => (
-                            <a
-                              href={option.href}
+                            <p
+                              onClick={e=>handleSort(e, option)}
                               className={classNames(
                                 option.current ? 'font-medium text-gray-900' : 'text-gray-500',
                                 focus ? 'bg-gray-100' : '',
@@ -249,7 +247,7 @@ export default function ProductList() {
                               )}
                             >
                               {option.name}
-                            </a>
+                            </p>
                           )}
                         </MenuItem>
                       ))}
@@ -309,6 +307,7 @@ export default function ProductList() {
                                   defaultValue={option.value}
                                   type="checkbox"
                                   defaultChecked={option.checked}
+                                  onChange={e => handleFilter(e, section, option)}
                                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                 />
                                 <label
@@ -333,28 +332,39 @@ export default function ProductList() {
                   <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
 
 
-                    <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                    <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
                       {products.map((product) => (
                         <Link to='/product-detail'>
-                          <div key={product.id} className="group relative">
-                            <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+                          <div key={product.id} className="group relative border-solid border-gray-200 border-2 p-2">
+                            <div className="min-h-80 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
                               <img
-                                src={product.imageSrc}
-                                alt={product.imageAlt}
+                                src={product.thumbnail}
+                                alt={product.title}
                                 className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                               />
                             </div>
                             <div className="mt-4 flex justify-between">
                               <div>
                                 <h3 className="text-sm text-gray-700">
-                                  <a href={product.href}>
+                                  <a href={product.thumbnail}>
                                     <span aria-hidden="true" className="absolute inset-0" />
-                                    {product.name}
+                                    {product.title}
                                   </a>
                                 </h3>
-                                <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+                                <div className="mt-1 text-sm text-gray-500 flex items-center">
+                                  <StarIcon className='w-6 h-6 mr-2'>
+                                  </StarIcon>
+                                  {product.rating}
+                                </div>
                               </div>
-                              <p className="text-sm font-medium text-gray-900">{product.price}</p>
+                              <div>
+                                <p className="text-sm block font-medium text-gray-900">
+                                  {"$" + Math.round(product.price * (1 - product.discountPercentage / 100))}
+                                </p>
+                                <p className="text-sm block font-medium text-gray-400 line-through">
+                                  {"$" + Math.round(product.price)}
+                                </p>
+                              </div>
                             </div>
                           </div>
                         </Link>
