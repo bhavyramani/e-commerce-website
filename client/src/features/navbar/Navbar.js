@@ -12,6 +12,8 @@ import {
 } from '@headlessui/react'
 import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { selectItems } from '../cart/CartSlice'
 
 const user = {
     name: 'Tom Cook',
@@ -34,10 +36,11 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 const Navbar = ({ children }) => {
+    const items = useSelector(selectItems);
     return (
-        <>
+        <div>
             <div className="min-h-full">
-                <Disclosure as="nav" className="bg-gray-800">
+                <Disclosure as="nav" className="bg-gray-800 sticky top-0 left-0 z-30">
                     {({ open }) => (
                         <>
                             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -45,11 +48,11 @@ const Navbar = ({ children }) => {
                                     <div className="flex items-center">
                                         <div className="flex-shrink-0">
                                             <Link to='/'>
-                                            <img
-                                                className="h-8 w-8"
-                                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                                                alt="Your Company"
-                                            />
+                                                <img
+                                                    className="h-8 w-8"
+                                                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                                                    alt="Your Company"
+                                                />
                                             </Link>
                                         </div>
                                         <div className="hidden md:block">
@@ -83,9 +86,9 @@ const Navbar = ({ children }) => {
                                                     <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
                                                 </button>
                                             </Link>
-                                            <span className="inline-flex mb-7 z-10 -ml-3 items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
-                                                3
-                                            </span>
+
+                                            {items.length > 0 ? <span className="inline-flex mb-7 z-10 -ml-3 items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10"> {items.length}</span> : ""}
+
 
                                             {/* Profile dropdown */}
                                             <Menu as="div" className="relative ml-3">
@@ -174,9 +177,9 @@ const Navbar = ({ children }) => {
                                                 <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
                                             </button>
                                         </Link>
-                                        <span className="inline-flex mb-7 z-10 -ml-3 items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
-                                            3
-                                        </span>
+
+                                        {items.length > 0 ? <span className="inline-flex mb-7 z-10 -ml-3 items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">{items.length}</span> : ''}
+
                                     </div>
                                     <div className="mt-3 space-y-1 px-2">
                                         {userNavigation.map((item) => (
@@ -207,7 +210,7 @@ const Navbar = ({ children }) => {
                     </div>
                 </main>
             </div>
-        </>
+        </div>
     )
 }
 

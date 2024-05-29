@@ -367,7 +367,7 @@ function Pagination({ page, setPage, handlePage, totalItems = 55 }) {
         <div>
           <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
             <a
-              
+
               className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
               onClick={e => handlePage(e, page > 1 ? page - 1 : page)}
             >
@@ -383,6 +383,7 @@ function Pagination({ page, setPage, handlePage, totalItems = 55 }) {
                   <p
                     onClick={e => handlePage(e, i + 1)}
                     aria-current="page"
+                    key={`page-${i+1}`}
                     className={`relative cursor-pointer z-10 inline-flex items-center ${page == i + 1 ? "bg-indigo-600 text-white" : "text-gray-400"} px-4 py-2 text-sm font-semibold focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
                   >
                     {i + 1}
@@ -393,7 +394,7 @@ function Pagination({ page, setPage, handlePage, totalItems = 55 }) {
             <a
 
               className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
-              onClick={e => handlePage(e, page < totalPages ? page + 1:page)}
+              onClick={e => handlePage(e, page < totalPages ? page + 1 : page)}
             >
               <span className="sr-only">Next</span>
               <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
@@ -410,8 +411,8 @@ function ProductGrid({ products }) {
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-          {products.map((product) => (
-            <Link to={`/product-detail/${product.id}`}>
+          {products.map((product, i) => (
+            <Link to={`/product-detail/${product.id}`} key={`product-${i}`}>
               <div key={product.id} className="group relative border-solid border-gray-200 border-2 p-2">
                 <div className="min-h-80 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
                   <img
