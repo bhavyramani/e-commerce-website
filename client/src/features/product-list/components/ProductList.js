@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  fetchAllProductsAsync,
   fetchProductsByFiltersAsync,
-  selectAllProducts
+  selectAllProducts,
+  fetchCategoriesAsync,
+  selectCategories,
+  fetchBrandsAsync,
+  selectBrands
 } from '../ProductSlice';
 
 import { Fragment } from 'react'
@@ -33,59 +36,6 @@ const sortOptions = [
   { name: 'Price: High to Low', sort: 'price', order: 'desc', current: false },
 ]
 
-const filters = [
-  {
-    id: 'brand',
-    name: 'Brands',
-    options: [
-      { value: 'Essence', label: 'Essence', checked: false },
-      { value: 'Glamour Beauty', label: 'Glamour Beauty', checked: false },
-      { value: 'Velvet Touch', label: 'Velvet Touch', checked: false },
-      { value: 'Chic Cosmetics', label: 'Chic Cosmetics', checked: false },
-      { value: 'Nail Couture', label: 'Nail Couture', checked: false },
-      { value: 'Calvin Klein', label: 'Calvin Klein', checked: false },
-      { value: 'Chanel', label: 'Chanel', checked: false },
-      { value: 'Dior', label: 'Dior', checked: false },
-      {
-        value: 'Dolce & Gabbana',
-        label: 'Dolce & Gabbana',
-        checked: false
-      },
-      { value: 'Gucci', label: 'Gucci', checked: false },
-      {
-        value: 'Annibale Colombo',
-        label: 'Annibale Colombo',
-        checked: false
-      },
-      { value: 'Furniture Co.', label: 'Furniture Co.', checked: false },
-      { value: 'Knoll', label: 'Knoll', checked: false },
-      { value: 'Bath Trends', label: 'Bath Trends', checked: false },
-    ],
-  },
-  {
-    id: 'category',
-    name: 'Category',
-    options: [
-      { value: 'beauty', label: 'beauty', checked: false },
-      { value: 'fragrances', label: 'fragrances', checked: false },
-      { value: 'furniture', label: 'furniture', checked: false },
-      { value: 'groceries', label: 'groceries', checked: false }
-    ],
-  },
-  {
-    id: 'size',
-    name: 'Size',
-    options: [
-      { value: '2l', label: '2L', checked: false },
-      { value: '6l', label: '6L', checked: false },
-      { value: '12l', label: '12L', checked: false },
-      { value: '18l', label: '18L', checked: false },
-      { value: '20l', label: '20L', checked: false },
-      { value: '40l', label: '40L', checked: false },
-    ],
-  },
-]
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -95,10 +45,24 @@ export default function ProductList() {
 
   const dispatch = useDispatch();
   const products = useSelector(selectAllProducts);
+  const categories = useSelector(selectCategories);
+  const brands = useSelector(selectBrands);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState({});
   const [page, setPage] = useState(1);
+  const filters = [
+    {
+      id: 'brand',
+      name: 'Brands',
+      options: brands
+    },
+    {
+      id: 'category',
+      name: 'Category',
+      options: categories
+    },
+  ];
 
   const handleFilter = (e, section, option) => {
     setPage(1);
@@ -107,15 +71,15 @@ export default function ProductList() {
       if (newFilter[section.id])
         newFilter[section.id].push(option.value);
       else
-      newFilter[section.id] = [option.value];
-  } else {
-    const index = newFilter[section.id].findIndex(el => el === option.value);
-    newFilter[section.id].splice(index, 1);
-  }
-  setFilter(newFilter);
-};
+        newFilter[section.id] = [option.value];
+    } else {
+      const index = newFilter[section.id].findIndex(el => el === option.value);
+      newFilter[section.id].splice(index, 1);
+    }
+    setFilter(newFilter);
+  };
 
-const handleSort = (e, option) => {
+  const handleSort = (e, option) => {
     const newSort = { _sort: option.sort, _order: option.order };
     setSort(newSort);
   };
@@ -129,12 +93,17 @@ const handleSort = (e, option) => {
     dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
   }, [filter, sort, page]);
 
+  useEffect(() => {
+    dispatch(fetchCategoriesAsync());
+    dispatch(fetchBrandsAsync());
+  }, []);
+
 
   return (
     <div className="bg-white">
       <div>
         {/* Mobile filter dialog */}
-        <MobileFilter handleFilter={handleFilter} mobileFiltersOpen={mobileFiltersOpen} setMobileFiltersOpen={setMobileFiltersOpen} ></MobileFilter>
+        <MobileFilter handleFilter={handleFilter} mobileFiltersOpen={mobileFiltersOpen} setMobileFiltersOpen={setMobileFiltersOpen} filters={filters}></MobileFilter>
 
 
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -206,7 +175,7 @@ const handleSort = (e, option) => {
 
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
-              <DesktopFilter handleFilter={handleFilter}></DesktopFilter>
+              <DesktopFilter handleFilter={handleFilter} filters={filters}></DesktopFilter>
 
               {/* Product grid */}
               <div className="lg:col-span-3">
@@ -225,7 +194,7 @@ const handleSort = (e, option) => {
   );
 }
 
-function MobileFilter({ mobileFiltersOpen, setMobileFiltersOpen, handleFilter }) {
+function MobileFilter({ mobileFiltersOpen, setMobileFiltersOpen, handleFilter, filters }) {
 
   return (
     <Transition show={mobileFiltersOpen}>
@@ -318,7 +287,7 @@ function MobileFilter({ mobileFiltersOpen, setMobileFiltersOpen, handleFilter })
   );
 }
 
-function DesktopFilter({ handleFilter }) {
+function DesktopFilter({ handleFilter, filters }) {
   return (
     <form className="hidden lg:block">
 
@@ -371,6 +340,7 @@ function DesktopFilter({ handleFilter }) {
 }
 
 function Pagination({ page, setPage, handlePage, totalItems = 55 }) {
+  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
   return (
     <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
@@ -397,8 +367,9 @@ function Pagination({ page, setPage, handlePage, totalItems = 55 }) {
         <div>
           <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
             <a
-              href="#"
+              
               className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              onClick={e => handlePage(e, page > 1 ? page - 1 : page)}
             >
               <span className="sr-only">Previous</span>
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
@@ -407,21 +378,22 @@ function Pagination({ page, setPage, handlePage, totalItems = 55 }) {
 
 
             {
-              Array.from({ length: Math.ceil(totalItems / ITEMS_PER_PAGE) }).map((el, i) => {
+              Array.from({ length: totalPages }).map((el, i) => {
                 return (
                   <p
-                    onClick={e=>handlePage(e, i+1)}
+                    onClick={e => handlePage(e, i + 1)}
                     aria-current="page"
-                    className={`relative cursor-pointer z-10 inline-flex items-center ${page == i+1 ?"bg-indigo-600 text-white":"text-gray-400"} px-4 py-2 text-sm font-semibold focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
+                    className={`relative cursor-pointer z-10 inline-flex items-center ${page == i + 1 ? "bg-indigo-600 text-white" : "text-gray-400"} px-4 py-2 text-sm font-semibold focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
                   >
-                    {i+1}
+                    {i + 1}
                   </p>
                 )
               })
             }
             <a
-              href="#"
+
               className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              onClick={e => handlePage(e, page < totalPages ? page + 1:page)}
             >
               <span className="sr-only">Next</span>
               <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
@@ -437,11 +409,9 @@ function ProductGrid({ products }) {
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
-
-
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
           {products.map((product) => (
-            <Link to='/product-detail'>
+            <Link to={`/product-detail/${product.id}`}>
               <div key={product.id} className="group relative border-solid border-gray-200 border-2 p-2">
                 <div className="min-h-80 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
                   <img
