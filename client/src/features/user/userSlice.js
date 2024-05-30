@@ -1,9 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { createOrder } from './OrderAPI';
+import { fetchLoggedInUserOrders } from './userAPI';
 
 const initialState = {
-  orders: [],
-  currentOrder: null,
+  userOrders: [],
   status: 'idle',
 };
 
@@ -12,41 +11,37 @@ const initialState = {
 // will call the thunk with the `dispatch` function as the first argument. Async
 // code can then be executed and other actions can be dispatched. Thunks are
 // typically used to make async requests.
-export const createOrderAsync = createAsyncThunk(
-  'order/createOrder',
-  async (order) => {
-    const response = await createOrder(order);
+export const fetchLoggedInUserOrdersAsync = createAsyncThunk(
+  'counter/fetchLoggedInUserOrders',
+  async (userId) => {
+    const response = await fetchLoggedInUserOrders(userId);
     // The value we return becomes the `fulfilled` action payload
     return response.data;
   }
 );
 
-export const orderSlice = createSlice({
-  name: 'order',
+export const userSlice = createSlice({
+  name: 'counter',
   initialState,
   reducers: {
     increment: (state) => {
       state.value += 1;
     },
-    resetOrder:(state)=>{
-      state.currentOrder = null;
-    }
   },
   extraReducers: (builder) => {
     builder
-      .addCase(createOrderAsync.pending, (state) => {
+      .addCase(fetchLoggedInUserOrdersAsync.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(createOrderAsync.fulfilled, (state, action) => {
+      .addCase(fetchLoggedInUserOrdersAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.currentOrder = action.payload;
-        state.orders.push(action.payload);
+        state.userOrders = action.payload;
       });
   },
 });
 
-export const { resetOrder } = orderSlice.actions;
+export const { increment} = userSlice.actions;
 
-export const selectCurrentOrder = (state) => state.order.currentOrder;
+export const selectUserOrders = (state) => state.user.userOrders;
 
-export default orderSlice.reducer;
+export default userSlice.reducer;

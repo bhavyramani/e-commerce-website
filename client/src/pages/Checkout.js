@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectLoggedInUser, updateUserAsync } from '../features/auth/authSlice';
 import { selectItems, fetchItemsByUserIdAsync } from '../features/cart/CartSlice';
-import { createOrderAsync } from '../features/order/OrderSlice';
+import { createOrderAsync, selectCurrentOrder } from '../features/order/OrderSlice';
 import { Link, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
@@ -17,6 +17,7 @@ const Checkout = () => {
 
     const [selectedAddress, setSelectedAddress] = useState(null);
     const [paymentMethod, setPaymentMethod] = useState('cash');
+    const currentOrder = useSelector(selectCurrentOrder);
 
     useEffect(() => {
         dispatch(fetchItemsByUserIdAsync(user.id));
@@ -31,20 +32,26 @@ const Checkout = () => {
     };
 
     const handleOrder = (e) => { 
-        const order = {
-            items,
-            totalAmount,
-            totalItems,
-            user, 
-            paymentMethod,
-            selectedAddress            
+        if(selectedAddress && paymentMethod){
+            const order = {
+                items,
+                totalAmount,
+                totalItems,
+                user, 
+                paymentMethod,
+                selectedAddress,
+                status:'pending'
+            }
+            dispatch(createOrderAsync(order));
+        }else{
+            alert('Please select Address and Payment Method');
         }
-        dispatch(createOrderAsync(order));
     };
 
     return (
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             {!items.length && <Navigate to='/' />}
+            {currentOrder && <Navigate to={`/order-success/${currentOrder.id}`} replace={true} />}
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5" style={{ "textAlign": "left" }}>
                 <div className='lg:col-span-3'>
                     <form className='bg-white px-5 py-12 mt-12 pb-10' noValidate onSubmit={
