@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  selectItems,
-} from './CartSlice';
 import { selectLoggedInUser } from '../auth/authSlice';
-import { fetchItemsByUserIdAsync, updateCartAsync, deleteFromCartAsync } from './CartSlice';
-import { Link } from 'react-router-dom';
+import { selectItems, fetchItemsByUserIdAsync, updateCartAsync, deleteFromCartAsync } from './CartSlice';
+import { Link, Navigate } from 'react-router-dom';
 
 export default function Cart() {
-  const count = useSelector(selectItems);
-  const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
+  const dispatch = useDispatch();
   const items = useSelector(selectItems);
   const user = useSelector(selectLoggedInUser);
   const totalAmount = items.reduce((amount, item) => amount + item[0].price*item.quantity, 0);
@@ -29,6 +25,7 @@ export default function Cart() {
 
   return (
     <div className=" bg-white mt-12 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      {!items.length && <Navigate to='/' />}
       <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
         <h1 className="text-4xl font-bold tracking-tight text-gray-900 mb-7">Cart</h1>
         <div className="flow-root">
