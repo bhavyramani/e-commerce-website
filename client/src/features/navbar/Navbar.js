@@ -27,7 +27,7 @@ const navigation = [
     { name: 'Projects', href: '#', current: false },
 ]
 const userNavigation = [
-    { name: 'Your Profile', link: '/profile' },
+    { name: 'My Profile', link: '/profile' },
     { name: 'My Orders', link: '/orders' },
     { name: 'Sign out', link: '/login' },
 ]
@@ -115,8 +115,9 @@ const Navbar = ({ children }) => {
                                                                         to={item.link}
                                                                         className={classNames(
                                                                             focus ? 'bg-gray-100' : '',
-                                                                            'block px-4 py-2 text-sm text-gray-700'
+                                                                            'block px-4 py-2 text-sm text-gray-700 mx-7'
                                                                         )}
+                                                                        style={{"textAlign":'left'}}
                                                                     >
                                                                         {item.name}
                                                                     </Link>

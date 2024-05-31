@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectLoggedInUser, updateUserAsync } from '../features/auth/authSlice';
+import { updateUserAsync } from '../features/user/userSlice';
 import { selectItems, fetchItemsByUserIdAsync } from '../features/cart/CartSlice';
 import { createOrderAsync, selectCurrentOrder } from '../features/order/OrderSlice';
 import { Link, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { selectUserInfo } from '../features/user/userSlice';
 
 const Checkout = () => {
     const [open, setOpen] = useState(true);
     const dispatch = useDispatch();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const items = useSelector(selectItems);
-    const user = useSelector(selectLoggedInUser);
+    const user = useSelector(selectUserInfo);
     const totalAmount = items.reduce((amount, item) => amount + item[0].price * item.quantity, 0);
     const totalItems = items.reduce((count, item) => count + item.quantity, 0);
 
@@ -21,7 +22,7 @@ const Checkout = () => {
 
     useEffect(() => {
         dispatch(fetchItemsByUserIdAsync(user.id));
-    }, [dispatch, user?.id]);
+    }, [dispatch, user?.addresses]);
 
     const handleAddress = (e) => {
         setSelectedAddress(user.addresses[e.target.value]);
@@ -31,19 +32,19 @@ const Checkout = () => {
         setPaymentMethod(e.target.value);
     };
 
-    const handleOrder = (e) => { 
-        if(selectedAddress && paymentMethod){
+    const handleOrder = (e) => {
+        if (selectedAddress && paymentMethod) {
             const order = {
                 items,
                 totalAmount,
                 totalItems,
-                user, 
+                user,
                 paymentMethod,
                 selectedAddress,
-                status:'pending'
+                status: 'pending'
             }
             dispatch(createOrderAsync(order));
-        }else{
+        } else {
             alert('Please select Address and Payment Method');
         }
     };
@@ -115,7 +116,7 @@ const Checkout = () => {
                                         <div className="mt-2">
                                             <input
                                                 type="text"
-                                                {...register('street-address', { required: 'Street-Address is Required' })}
+                                                {...register('street', { required: 'Street-Address is Required' })}
                                                 id="street-address"
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             />
@@ -202,11 +203,18 @@ const Checkout = () => {
                                                     <p className="mt-1 truncate text-xs leading-5 text-gray-500">
                                                         {address.street}
                                                     </p>
+                                                    <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                                                        {address.pincode}
+                                                    </p>
                                                 </div>
                                             </div>
                                             <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                                                <p className="text-sm leading-6 text-gray-900">{address.phone}</p>
-                                                <p className="text-sm leading-6 text-gray-900">{address.pincode}</p>
+                                                <p className="text-sm leading-6 text-gray-900">
+                                                    Phone : {address.phone}
+                                                </p>
+                                                <p className="text-sm leading-6 text-gray-900">
+                                                    {address.city}
+                                                </p>
                                             </div>
                                         </li>
                                     ))}

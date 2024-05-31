@@ -3,15 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
     selectUserOrders,
 } from '../userSlice';
-import { selectLoggedInUser } from '../../auth/authSlice';
+import { selectUserInfo } from '../userSlice';
 import { fetchLoggedInUserOrdersAsync } from '../userSlice';
 import { Navigate } from 'react-router-dom';
 
 export default function UserOrders() {
     const dispatch = useDispatch();
-    const user = useSelector(selectLoggedInUser);
+    const user = useSelector(selectUserInfo);
     const orders = useSelector(selectUserOrders);
-    console.log(orders);
     useEffect(() => {
         dispatch(fetchLoggedInUserOrdersAsync(user.id));
     }, [dispatch]);
@@ -46,7 +45,7 @@ export default function UserOrders() {
                                                             <h3>
                                                                 <a href={product[0].href}>{product[0].title}</a>
                                                             </h3>
-                                                            <p className="ml-4">${product[0].price}</p>
+                                                            <p className="ml-4">${product[0].price*product.quantity}</p>
                                                         </div>
                                                         <p className="mt-1 text-sm text-gray-500" style={{ "textAlign": "left" }}>{product[0].brand}</p>
                                                     </div>
@@ -74,7 +73,7 @@ export default function UserOrders() {
                                     <p>${order.totalAmount}</p>
                                 </div>
                                 Shipping Address:
-                                <div  className="flex mt-3 justify-between gap-x-6 py-5 border-solid border-2 border-gray-200 px-5">
+                                <div className="flex mt-3 justify-between gap-x-6 py-5 border-solid border-2 border-gray-200 px-5">
                                     <div className="flex min-w-0 gap-x-4">
                                         <div className="min-w-0 flex-auto">
                                             <p className="text-sm font-semibold leading-6 text-gray-900">
@@ -83,11 +82,18 @@ export default function UserOrders() {
                                             <p className="mt-1 truncate text-xs leading-5 text-gray-500">
                                                 {order.selectedAddress.street}
                                             </p>
+                                            <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                                                {order.selectedAddress.pincode}
+                                            </p>
                                         </div>
                                     </div>
                                     <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                                        <p className="text-sm leading-6 text-gray-900">{order.selectedAddress.phone}</p>
-                                        <p className="text-sm leading-6 text-gray-900">{order.selectedAddress.pincode}</p>
+                                        <p className="text-sm leading-6 text-gray-900">
+                                            Phone : {order.selectedAddress.phone}
+                                        </p>
+                                        <p className="text-sm leading-6 text-gray-900">
+                                            {order.selectedAddress.city}
+                                        </p>
                                     </div>
                                 </div>
 
@@ -96,7 +102,6 @@ export default function UserOrders() {
                     )
                 })
             }
-
         </div>
     );
 }

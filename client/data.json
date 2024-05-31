@@ -1916,22 +1916,13 @@
       "password": "Bhavy:9998",
       "addresses": [
         {
-          "name": "Ad 1",
+          "name": "Bhavy",
           "email": "bhavyramani29@gmail.com",
           "phone": "9998206486",
-          "street-address": "ad 1",
+          "street": "New Sagar Society",
           "city": "Rajkot",
           "state": "Gujarat",
-          "pincode": "36002"
-        },
-        {
-          "name": "Ad 2",
-          "email": "bhavyramani29@gmail.com",
-          "phone": "9998",
-          "street-address": "gyugwefyt",
-          "city": "fytfu",
-          "state": "ityfvi",
-          "pincode": "iytf"
+          "pincode": "360002"
         }
       ]
     },
@@ -1944,76 +1935,141 @@
   "cart": [],
   "order": [
     {
-      "id": "a5e7",
+      "id": "a465",
       "items": [
         {
           "0": {
-            "id": "2",
-            "title": "Eyeshadow Palette with Mirror",
-            "description": "The Eyeshadow Palette with Mirror offers a versatile range of eyeshadow shades for creating stunning eye looks. With a built-in mirror, it's convenient for on-the-go makeup application.",
+            "id": "4",
+            "title": "Red Lipstick",
+            "description": "The Red Lipstick is a classic and bold choice for adding a pop of color to your lips. With a creamy and pigmented formula, it provides a vibrant and long-lasting finish.",
             "category": "beauty",
-            "price": 19.99,
-            "discountPercentage": 5.5,
-            "rating": 3.28,
-            "stock": 44,
+            "price": 12.99,
+            "discountPercentage": 19.03,
+            "rating": 2.51,
+            "stock": 68,
             "tags": [
               "beauty",
-              "eyeshadow"
+              "lipstick"
             ],
-            "brand": "Glamour Beauty",
-            "sku": "MVCFH27F",
-            "weight": 3,
+            "brand": "Chic Cosmetics",
+            "sku": "O5IF1NTA",
+            "weight": 5,
             "dimensions": {
-              "width": 12.42,
-              "height": 8.63,
-              "depth": 29.13
+              "width": 14.37,
+              "height": 13.94,
+              "depth": 14.6
             },
-            "warrantyInformation": "1 year warranty",
+            "warrantyInformation": "Lifetime warranty",
             "shippingInformation": "Ships in 2 weeks",
             "availabilityStatus": "In Stock",
             "reviews": [
               {
-                "rating": 4,
-                "comment": "Very satisfied!",
-                "date": "2024-05-23T08:56:21.618Z",
-                "reviewerName": "Liam Garcia",
-                "reviewerEmail": "liam.garcia@x.dummyjson.com"
+                "rating": 5,
+                "comment": "Great product!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Leo Rivera",
+                "reviewerEmail": "leo.rivera@x.dummyjson.com"
               },
               {
-                "rating": 1,
-                "comment": "Very disappointed!",
-                "date": "2024-05-23T08:56:21.618Z",
-                "reviewerName": "Nora Russell",
-                "reviewerEmail": "nora.russell@x.dummyjson.com"
+                "rating": 4,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Oscar Powers",
+                "reviewerEmail": "oscar.powers@x.dummyjson.com"
               },
               {
                 "rating": 5,
-                "comment": "Highly impressed!",
-                "date": "2024-05-23T08:56:21.618Z",
-                "reviewerName": "Elena Baker",
-                "reviewerEmail": "elena.baker@x.dummyjson.com"
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Carter Rivera",
+                "reviewerEmail": "carter.rivera@x.dummyjson.com"
               }
             ],
-            "returnPolicy": "30 days return policy",
-            "minimumOrderQuantity": 32,
+            "returnPolicy": "90 days return policy",
+            "minimumOrderQuantity": 6,
             "meta": {
-              "createdAt": "2024-05-23T08:56:21.618Z",
-              "updatedAt": "2024-05-23T08:56:21.618Z",
-              "barcode": "2817839095220",
+              "createdAt": "2024-05-23T08:56:21.619Z",
+              "updatedAt": "2024-05-23T08:56:21.619Z",
+              "barcode": "9444582199406",
               "qrCode": "https://dummyjson.com/public/qr-code.png"
             },
             "images": [
-              "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/1.png"
+              "https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/1.png"
             ],
-            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png"
+            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/thumbnail.png"
           },
-          "id": "a26a",
+          "id": "9f7a",
+          "quantity": 2,
+          "user": "63e8"
+        },
+        {
+          "0": {
+            "id": "4",
+            "title": "Red Lipstick",
+            "description": "The Red Lipstick is a classic and bold choice for adding a pop of color to your lips. With a creamy and pigmented formula, it provides a vibrant and long-lasting finish.",
+            "category": "beauty",
+            "price": 12.99,
+            "discountPercentage": 19.03,
+            "rating": 2.51,
+            "stock": 68,
+            "tags": [
+              "beauty",
+              "lipstick"
+            ],
+            "brand": "Chic Cosmetics",
+            "sku": "O5IF1NTA",
+            "weight": 5,
+            "dimensions": {
+              "width": 14.37,
+              "height": 13.94,
+              "depth": 14.6
+            },
+            "warrantyInformation": "Lifetime warranty",
+            "shippingInformation": "Ships in 2 weeks",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 5,
+                "comment": "Great product!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Leo Rivera",
+                "reviewerEmail": "leo.rivera@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Oscar Powers",
+                "reviewerEmail": "oscar.powers@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Carter Rivera",
+                "reviewerEmail": "carter.rivera@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "90 days return policy",
+            "minimumOrderQuantity": 6,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.619Z",
+              "updatedAt": "2024-05-23T08:56:21.619Z",
+              "barcode": "9444582199406",
+              "qrCode": "https://dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/1.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/thumbnail.png"
+          },
+          "id": "7cd8",
           "quantity": 1,
           "user": "63e8"
         }
       ],
-      "totalAmount": 19.99,
-      "totalItems": 1,
+      "totalAmount": 38.97,
+      "totalItems": 3,
       "user": {
         "id": "63e8",
         "email": "bhavyramani29@gmail.com",
@@ -2023,7 +2079,7 @@
             "name": "Ad 1",
             "email": "bhavyramani29@gmail.com",
             "phone": "9998206486",
-            "street-address": "ad 1",
+            "street": "ad 1",
             "city": "Rajkot",
             "state": "Gujarat",
             "pincode": "36002"
@@ -2032,7 +2088,7 @@
             "name": "Ad 2",
             "email": "bhavyramani29@gmail.com",
             "phone": "9998",
-            "street-address": "gyugwefyt",
+            "street": "gyugwefyt",
             "city": "fytfu",
             "state": "ityfvi",
             "pincode": "iytf"
@@ -2044,7 +2100,7 @@
         "name": "Ad 1",
         "email": "bhavyramani29@gmail.com",
         "phone": "9998206486",
-        "street-address": "ad 1",
+        "street": "ad 1",
         "city": "Rajkot",
         "state": "Gujarat",
         "pincode": "36002"
@@ -2052,7 +2108,7 @@
       "status": "pending"
     },
     {
-      "id": "afe7",
+      "id": "14b7",
       "items": [
         {
           "0": {
@@ -2115,7 +2171,7 @@
             ],
             "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/thumbnail.png"
           },
-          "id": "3deb",
+          "id": "d535",
           "quantity": 1,
           "user": "63e8"
         }
@@ -2128,34 +2184,254 @@
         "password": "Bhavy:9998",
         "addresses": [
           {
-            "name": "Ad 1",
+            "name": "Bhavy Ramani",
             "email": "bhavyramani29@gmail.com",
             "phone": "9998206486",
-            "street-address": "ad 1",
-            "city": "Rajkot",
+            "street": "New Sagar Society",
+            "city": "Rajkot ",
             "state": "Gujarat",
-            "pincode": "36002"
-          },
-          {
-            "name": "Ad 2",
-            "email": "bhavyramani29@gmail.com",
-            "phone": "9998",
-            "street-address": "gyugwefyt",
-            "city": "fytfu",
-            "state": "ityfvi",
-            "pincode": "iytf"
+            "pincode": "360002"
           }
         ]
       },
       "paymentMethod": "cash",
       "selectedAddress": {
-        "name": "Ad 2",
+        "name": "Bhavy Ramani",
         "email": "bhavyramani29@gmail.com",
-        "phone": "9998",
-        "street-address": "gyugwefyt",
-        "city": "fytfu",
-        "state": "ityfvi",
-        "pincode": "iytf"
+        "phone": "9998206486",
+        "street": "New Sagar Society",
+        "city": "Rajkot ",
+        "state": "Gujarat",
+        "pincode": "360002"
+      },
+      "status": "pending"
+    },
+    {
+      "id": "bee4",
+      "items": [
+        {
+          "0": {
+            "id": "2",
+            "title": "Eyeshadow Palette with Mirror",
+            "description": "The Eyeshadow Palette with Mirror offers a versatile range of eyeshadow shades for creating stunning eye looks. With a built-in mirror, it's convenient for on-the-go makeup application.",
+            "category": "beauty",
+            "price": 19.99,
+            "discountPercentage": 5.5,
+            "rating": 3.28,
+            "stock": 44,
+            "tags": [
+              "beauty",
+              "eyeshadow"
+            ],
+            "brand": "Glamour Beauty",
+            "sku": "MVCFH27F",
+            "weight": 3,
+            "dimensions": {
+              "width": 12.42,
+              "height": 8.63,
+              "depth": 29.13
+            },
+            "warrantyInformation": "1 year warranty",
+            "shippingInformation": "Ships in 2 weeks",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 4,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Liam Garcia",
+                "reviewerEmail": "liam.garcia@x.dummyjson.com"
+              },
+              {
+                "rating": 1,
+                "comment": "Very disappointed!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Nora Russell",
+                "reviewerEmail": "nora.russell@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Elena Baker",
+                "reviewerEmail": "elena.baker@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "30 days return policy",
+            "minimumOrderQuantity": 32,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.618Z",
+              "updatedAt": "2024-05-23T08:56:21.618Z",
+              "barcode": "2817839095220",
+              "qrCode": "https://dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/1.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png"
+          },
+          "id": "e702",
+          "quantity": 1,
+          "user": "63e8"
+        },
+        {
+          "0": {
+            "id": "2",
+            "title": "Eyeshadow Palette with Mirror",
+            "description": "The Eyeshadow Palette with Mirror offers a versatile range of eyeshadow shades for creating stunning eye looks. With a built-in mirror, it's convenient for on-the-go makeup application.",
+            "category": "beauty",
+            "price": 19.99,
+            "discountPercentage": 5.5,
+            "rating": 3.28,
+            "stock": 44,
+            "tags": [
+              "beauty",
+              "eyeshadow"
+            ],
+            "brand": "Glamour Beauty",
+            "sku": "MVCFH27F",
+            "weight": 3,
+            "dimensions": {
+              "width": 12.42,
+              "height": 8.63,
+              "depth": 29.13
+            },
+            "warrantyInformation": "1 year warranty",
+            "shippingInformation": "Ships in 2 weeks",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 4,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Liam Garcia",
+                "reviewerEmail": "liam.garcia@x.dummyjson.com"
+              },
+              {
+                "rating": 1,
+                "comment": "Very disappointed!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Nora Russell",
+                "reviewerEmail": "nora.russell@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Elena Baker",
+                "reviewerEmail": "elena.baker@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "30 days return policy",
+            "minimumOrderQuantity": 32,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.618Z",
+              "updatedAt": "2024-05-23T08:56:21.618Z",
+              "barcode": "2817839095220",
+              "qrCode": "https://dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/1.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png"
+          },
+          "id": "65c5",
+          "quantity": 1,
+          "user": "63e8"
+        },
+        {
+          "0": {
+            "id": "2",
+            "title": "Eyeshadow Palette with Mirror",
+            "description": "The Eyeshadow Palette with Mirror offers a versatile range of eyeshadow shades for creating stunning eye looks. With a built-in mirror, it's convenient for on-the-go makeup application.",
+            "category": "beauty",
+            "price": 19.99,
+            "discountPercentage": 5.5,
+            "rating": 3.28,
+            "stock": 44,
+            "tags": [
+              "beauty",
+              "eyeshadow"
+            ],
+            "brand": "Glamour Beauty",
+            "sku": "MVCFH27F",
+            "weight": 3,
+            "dimensions": {
+              "width": 12.42,
+              "height": 8.63,
+              "depth": 29.13
+            },
+            "warrantyInformation": "1 year warranty",
+            "shippingInformation": "Ships in 2 weeks",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 4,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Liam Garcia",
+                "reviewerEmail": "liam.garcia@x.dummyjson.com"
+              },
+              {
+                "rating": 1,
+                "comment": "Very disappointed!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Nora Russell",
+                "reviewerEmail": "nora.russell@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Elena Baker",
+                "reviewerEmail": "elena.baker@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "30 days return policy",
+            "minimumOrderQuantity": 32,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.618Z",
+              "updatedAt": "2024-05-23T08:56:21.618Z",
+              "barcode": "2817839095220",
+              "qrCode": "https://dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/1.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png"
+          },
+          "id": "a3ef",
+          "quantity": 1,
+          "user": "63e8"
+        }
+      ],
+      "totalAmount": 59.97,
+      "totalItems": 3,
+      "user": {
+        "id": "63e8",
+        "email": "bhavyramani29@gmail.com",
+        "password": "Bhavy:9998",
+        "addresses": [
+          {
+            "name": "Bhavy",
+            "email": "bhavyramani29@gmail.com",
+            "phone": "9998206486",
+            "street": "New Sagar Society",
+            "city": "Rajkot",
+            "state": "Gujarat",
+            "pincode": "360002"
+          }
+        ]
+      },
+      "paymentMethod": "cash",
+      "selectedAddress": {
+        "name": "Bhavy",
+        "email": "bhavyramani29@gmail.com",
+        "phone": "9998206486",
+        "street": "New Sagar Society",
+        "city": "Rajkot",
+        "state": "Gujarat",
+        "pincode": "360002"
       },
       "status": "pending"
     }
