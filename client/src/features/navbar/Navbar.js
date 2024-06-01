@@ -29,7 +29,7 @@ const navigation = [
 const userNavigation = [
     { name: 'My Profile', link: '/profile' },
     { name: 'My Orders', link: '/orders' },
-    { name: 'Sign out', link: '/login' },
+    { name: 'Sign out', link: '/logout' },
 ]
 
 function classNames(...classes) {
@@ -43,7 +43,7 @@ const Navbar = ({ children }) => {
                 <Disclosure as="nav" className="bg-gray-800 sticky top-0 left-0 z-30">
                     {({ open }) => (
                         <>
-                            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-left">
                                 <div className="flex h-16 items-center justify-between">
                                     <div className="flex items-center">
                                         <div className="flex-shrink-0">

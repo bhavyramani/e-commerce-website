@@ -26,6 +26,7 @@ const UserProfile = () => {
 
     const handleEditForm = (e, index) => {
         setselectedEditIndex(index);
+        setshowAddForm(false);
         const address = user.addresses[index];
         setValue('name', address.name);
         setValue('email', address.email);
@@ -34,6 +35,18 @@ const UserProfile = () => {
         setValue('city', address.city);
         setValue('state', address.state);
         setValue('pincode', address.pincode);
+    };
+
+    const handleAdd = ()=>{
+        setshowAddForm(true);
+        setselectedEditIndex(-1);
+        setValue('name', '');
+        setValue('email', '');
+        setValue('phone', '');
+        setValue('street', '');
+        setValue('city', '');
+        setValue('state', '');
+        setValue('pincode', );
     };
 
     return (
@@ -46,7 +59,7 @@ const UserProfile = () => {
                     Email : {user.email}
                 </h3>
                 <button
-                    onClick={e=>setshowAddForm(true)}
+                    onClick={e=>handleAdd()}
                     className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
                 >
                     Add New Address
