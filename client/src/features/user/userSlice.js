@@ -13,7 +13,7 @@ const initialState = {
 // code can then be executed and other actions can be dispatched. Thunks are
 // typically used to make async requests.
 export const fetchLoggedInUserOrdersAsync = createAsyncThunk(
-  'counter/fetchLoggedInUserOrders',
+  'user/fetchLoggedInUserOrders',
   async (userId) => {
     const response = await fetchLoggedInUserOrders(userId);
     // The value we return becomes the `fulfilled` action payload
@@ -22,7 +22,7 @@ export const fetchLoggedInUserOrdersAsync = createAsyncThunk(
 );
 
 export const fetchLoggedInUserAsync = createAsyncThunk(
-  'counter/fetchLoggedInUser',
+  'user/fetchLoggedInUser',
   async (userId) => {
     const response = await fetchLoggedInUser(userId);
     // The value we return becomes the `fulfilled` action payload
@@ -31,16 +31,16 @@ export const fetchLoggedInUserAsync = createAsyncThunk(
 );
 
 export const updateUserAsync = createAsyncThunk(
-  'counter/updateUser',
-  async (id) => {
-    const response = await updateUser(id);
+  'user/updateUser',
+  async (update) => {
+    const response = await updateUser(update);
     // The value we return becomes the `fulfilled` action payload
     return response.data;
   }
 );
 
 export const userSlice = createSlice({
-  name: 'counter',
+  name: 'user',
   initialState,
   reducers: {
     increment: (state) => {
@@ -61,7 +61,7 @@ export const userSlice = createSlice({
       })
       .addCase(updateUserAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.userOrders = action.payload;
+        state.userInfo  = action.payload;
       })
       .addCase(fetchLoggedInUserAsync.pending, (state) => {
         state.status = 'loading';

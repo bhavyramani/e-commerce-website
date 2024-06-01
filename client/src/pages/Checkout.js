@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateUserAsync } from '../features/user/userSlice';
 import { selectItems, fetchItemsByUserIdAsync } from '../features/cart/CartSlice';
 import { createOrderAsync, selectCurrentOrder } from '../features/order/OrderSlice';
 import { Link, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { selectUserInfo } from '../features/user/userSlice';
+import { selectUserInfo, updateUserAsync } from '../features/user/userSlice';
 
 const Checkout = () => {
     const [open, setOpen] = useState(true);
@@ -22,7 +21,7 @@ const Checkout = () => {
 
     useEffect(() => {
         dispatch(fetchItemsByUserIdAsync(user.id));
-    }, [dispatch, user?.addresses]);
+    }, [dispatch, user]);
 
     const handleAddress = (e) => {
         setSelectedAddress(user.addresses[e.target.value]);
@@ -204,7 +203,7 @@ const Checkout = () => {
                                                         {address.street}
                                                     </p>
                                                     <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                                                        {address.pincode}
+                                                        {address.city}
                                                     </p>
                                                 </div>
                                             </div>
@@ -213,7 +212,7 @@ const Checkout = () => {
                                                     Phone : {address.phone}
                                                 </p>
                                                 <p className="text-sm leading-6 text-gray-900">
-                                                    {address.city}
+                                                    {address.pincode}
                                                 </p>
                                             </div>
                                         </li>
@@ -287,7 +286,7 @@ const Checkout = () => {
                                                         <h3>
                                                             <a href={product[0].href}>{product[0].title}</a>
                                                         </h3>
-                                                        <p className="ml-4">${product[0].price}</p>
+                                                        <p className="ml-4">${product[0].price*product.quantity}</p>
                                                     </div>
                                                     <p className="mt-1 text-sm text-gray-500" style={{ "textAlign": "left" }}>{product[0].brand}</p>
                                                 </div>
