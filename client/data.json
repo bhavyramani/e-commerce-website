@@ -1795,6 +1795,24 @@
         "https://cdn.dummyjson.com/products/images/groceries/Kiwi/1.png"
       ],
       "thumbnail": "https://cdn.dummyjson.com/products/images/groceries/Kiwi/thumbnail.png"
+    },
+    {
+      "id": "296f",
+      "title": "b",
+      "description": "ab",
+      "price": 4,
+      "discountPercentage": 6,
+      "stock": 1,
+      "brand": "Choose Brand",
+      "category": "Choose Category",
+      "images": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "discount": null,
+      "deleted": true
     }
   ],
   "brands": [
@@ -1918,18 +1936,21 @@
         {
           "name": "Bhavy",
           "email": "bhavyramani29@gmail.com",
-          "phone": "9998206486",
+          "phone": "999820648",
           "street": "New Sagar Society",
           "city": "Rajkot",
-          "state": "Gujarat",
+          "state": "Gujarati",
           "pincode": "360089"
         }
-      ]
+      ],
+      "role": "user"
     },
     {
       "id": "bcd0",
       "email": "ramanibhavy89@gmail.com",
-      "password": "Bhavy:9998"
+      "password": "Bhavy:9998",
+      "role": "admin",
+      "addresses": []
     }
   ],
   "cart": [],

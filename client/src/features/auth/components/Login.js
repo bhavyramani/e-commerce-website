@@ -35,7 +35,6 @@ export default function Login() {
 
             <div className="mt-2">
               <input
-                value={"bhavyramani29@gmail.com"}
                 id="email"
                 {...register("email", { required: "Email is Required", pattern: { value: /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi, message: "Email is not Valid" } })}
                 type="email"
