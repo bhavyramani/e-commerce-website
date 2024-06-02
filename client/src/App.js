@@ -20,6 +20,7 @@ import UserOrdersPage from './pages/UserOrdersPage';
 import UserProfilePage from './pages/UserProfilePage';
 import AdminHome from './pages/AdminHome';
 import AdminProductFormPage from './pages/AdminProductFormPage';
+import AdminOrderPage from './pages/AdminOrderPage'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchItemsByUserIdAsync } from './features/cart/CartSlice';
 import { selectLoggedInUser } from './features/auth/authSlice';
@@ -100,6 +101,14 @@ const router = createBrowserRouter([
     element: (
       <ProtectedAdmin>
         <AdminProductFormPage></AdminProductFormPage>
+      </ProtectedAdmin>
+    )
+  },
+  {
+    path: "/admin/orders",
+    element: (
+      <ProtectedAdmin>
+        <AdminOrderPage></AdminOrderPage>
       </ProtectedAdmin>
     )
   },

@@ -3,13 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectLoggedInUser } from '../auth/authSlice';
 import { selectItems, fetchItemsByUserIdAsync, updateCartAsync, deleteFromCartAsync } from './CartSlice';
 import { Link, Navigate } from 'react-router-dom';
+import { discountedPrice } from '../../app/constants';
 
 export default function Cart() {
   const [open, setOpen] = useState(true);
   const dispatch = useDispatch();
   const items = useSelector(selectItems);
   const user = useSelector(selectLoggedInUser);
-  const totalAmount = items.reduce((amount, item) => amount + item[0].price*item.quantity, 0);
+  const totalAmount = items.reduce((amount, item) => amount + discountedPrice(item[0])*item.quantity, 0);
   const totalItems = items.reduce((count, item) => count + item.quantity, 0);
   const handleQuantity = (e, item)=>{
     dispatch(updateCartAsync({...item, quantity: +e.target.value}))
@@ -46,7 +47,7 @@ export default function Cart() {
                       <h3>
                         <a href={product[0].href}>{product[0].title}</a>
                       </h3>
-                      <p className="ml-4">${product[0].price}</p>
+                      <p className="ml-4">${discountedPrice(product[0])*product.quantity}</p>
                     </div>
                     <p className="mt-1 text-sm text-gray-500" style={{ "textAlign": "left" }}>{product[0].brand}</p>
                   </div>

@@ -6,6 +6,7 @@ import {
 } from '../userSlice';
 import { fetchLoggedInUserOrdersAsync } from '../userSlice';
 import { Navigate } from 'react-router-dom';
+import { discountedPrice } from '../../../app/constants';
 
 export default function UserOrders() {
     const dispatch = useDispatch();
@@ -45,7 +46,7 @@ export default function UserOrders() {
                                                             <h3>
                                                                 <a href={product[0].href}>{product[0].title}</a>
                                                             </h3>
-                                                            <p className="ml-4">${product[0].price}</p>
+                                                            <p className="ml-4">${discountedPrice(product[0])}</p>
                                                         </div>
                                                         <p className="mt-1 text-sm text-gray-500" style={{ "textAlign": "left" }}>{product[0].brand}</p>
                                                     </div>

@@ -1956,141 +1956,145 @@
   "cart": [],
   "order": [
     {
-      "id": "1562",
+      "id": "f418",
       "items": [
         {
           "0": {
-            "id": "2",
-            "title": "Eyeshadow Palette with Mirror",
-            "description": "The Eyeshadow Palette with Mirror offers a versatile range of eyeshadow shades for creating stunning eye looks. With a built-in mirror, it's convenient for on-the-go makeup application.",
-            "category": "beauty",
-            "price": 19.99,
-            "discountPercentage": 5.5,
-            "rating": 3.28,
-            "stock": 44,
+            "id": "11",
+            "title": "Annibale Colombo Bed",
+            "description": "The Annibale Colombo Bed is a luxurious and elegant bed frame, crafted with high-quality materials for a comfortable and stylish bedroom.",
+            "category": "furniture",
+            "price": 1899.99,
+            "discountPercentage": 0.29,
+            "rating": 4.14,
+            "stock": 47,
             "tags": [
-              "beauty",
-              "eyeshadow"
+              "furniture",
+              "beds"
             ],
-            "brand": "Glamour Beauty",
-            "sku": "MVCFH27F",
+            "brand": "Annibale Colombo",
+            "sku": "4KMDTZWF",
             "weight": 3,
             "dimensions": {
-              "width": 12.42,
-              "height": 8.63,
-              "depth": 29.13
+              "width": 28.75,
+              "height": 26.88,
+              "depth": 24.47
             },
-            "warrantyInformation": "1 year warranty",
-            "shippingInformation": "Ships in 2 weeks",
+            "warrantyInformation": "2 year warranty",
+            "shippingInformation": "Ships overnight",
             "availabilityStatus": "In Stock",
             "reviews": [
               {
                 "rating": 4,
-                "comment": "Very satisfied!",
-                "date": "2024-05-23T08:56:21.618Z",
-                "reviewerName": "Liam Garcia",
-                "reviewerEmail": "liam.garcia@x.dummyjson.com"
-              },
-              {
-                "rating": 1,
-                "comment": "Very disappointed!",
-                "date": "2024-05-23T08:56:21.618Z",
-                "reviewerName": "Nora Russell",
-                "reviewerEmail": "nora.russell@x.dummyjson.com"
+                "comment": "Great value for money!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Julian Newton",
+                "reviewerEmail": "julian.newton@x.dummyjson.com"
               },
               {
                 "rating": 5,
-                "comment": "Highly impressed!",
-                "date": "2024-05-23T08:56:21.618Z",
-                "reviewerName": "Elena Baker",
-                "reviewerEmail": "elena.baker@x.dummyjson.com"
+                "comment": "Would buy again!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Madison Collins",
+                "reviewerEmail": "madison.collins@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Would buy again!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Clara Berry",
+                "reviewerEmail": "clara.berry@x.dummyjson.com"
               }
             ],
-            "returnPolicy": "30 days return policy",
-            "minimumOrderQuantity": 32,
+            "returnPolicy": "7 days return policy",
+            "minimumOrderQuantity": 1,
             "meta": {
-              "createdAt": "2024-05-23T08:56:21.618Z",
-              "updatedAt": "2024-05-23T08:56:21.618Z",
-              "barcode": "2817839095220",
+              "createdAt": "2024-05-23T08:56:21.620Z",
+              "updatedAt": "2024-05-23T08:56:21.620Z",
+              "barcode": "7113807059215",
               "qrCode": "https://dummyjson.com/public/qr-code.png"
             },
             "images": [
-              "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/1.png"
+              "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Bed/1.png",
+              "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Bed/2.png",
+              "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Bed/3.png"
             ],
-            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png"
+            "thumbnail": "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Bed/thumbnail.png"
           },
-          "id": "5a1a",
-          "quantity": 3,
+          "id": "46a7",
+          "quantity": 1,
           "user": "63e8"
         },
         {
           "0": {
-            "id": "2",
-            "title": "Eyeshadow Palette with Mirror",
-            "description": "The Eyeshadow Palette with Mirror offers a versatile range of eyeshadow shades for creating stunning eye looks. With a built-in mirror, it's convenient for on-the-go makeup application.",
-            "category": "beauty",
-            "price": 19.99,
-            "discountPercentage": 5.5,
-            "rating": 3.28,
-            "stock": 44,
+            "id": "13",
+            "title": "Bedside Table African Cherry",
+            "description": "The Bedside Table in African Cherry is a stylish and functional addition to your bedroom, providing convenient storage space and a touch of elegance.",
+            "category": "furniture",
+            "price": 299.99,
+            "discountPercentage": 9.58,
+            "rating": 4.48,
+            "stock": 16,
             "tags": [
-              "beauty",
-              "eyeshadow"
+              "furniture",
+              "bedside tables"
             ],
-            "brand": "Glamour Beauty",
-            "sku": "MVCFH27F",
-            "weight": 3,
+            "brand": "Furniture Co.",
+            "sku": "OWPLTZYX",
+            "weight": 10,
             "dimensions": {
-              "width": 12.42,
-              "height": 8.63,
-              "depth": 29.13
+              "width": 25.43,
+              "height": 20.2,
+              "depth": 24.95
             },
-            "warrantyInformation": "1 year warranty",
-            "shippingInformation": "Ships in 2 weeks",
+            "warrantyInformation": "6 months warranty",
+            "shippingInformation": "Ships in 1-2 business days",
             "availabilityStatus": "In Stock",
             "reviews": [
               {
-                "rating": 4,
-                "comment": "Very satisfied!",
-                "date": "2024-05-23T08:56:21.618Z",
-                "reviewerName": "Liam Garcia",
-                "reviewerEmail": "liam.garcia@x.dummyjson.com"
-              },
-              {
-                "rating": 1,
-                "comment": "Very disappointed!",
-                "date": "2024-05-23T08:56:21.618Z",
-                "reviewerName": "Nora Russell",
-                "reviewerEmail": "nora.russell@x.dummyjson.com"
-              },
-              {
                 "rating": 5,
-                "comment": "Highly impressed!",
-                "date": "2024-05-23T08:56:21.618Z",
-                "reviewerName": "Elena Baker",
-                "reviewerEmail": "elena.baker@x.dummyjson.com"
+                "comment": "Very happy with my purchase!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "John Doe",
+                "reviewerEmail": "john.doe@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Highly recommended!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Avery Carter",
+                "reviewerEmail": "avery.carter@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Evelyn Sanchez",
+                "reviewerEmail": "evelyn.sanchez@x.dummyjson.com"
               }
             ],
-            "returnPolicy": "30 days return policy",
-            "minimumOrderQuantity": 32,
+            "returnPolicy": "No return policy",
+            "minimumOrderQuantity": 5,
             "meta": {
-              "createdAt": "2024-05-23T08:56:21.618Z",
-              "updatedAt": "2024-05-23T08:56:21.618Z",
-              "barcode": "2817839095220",
+              "createdAt": "2024-05-23T08:56:21.620Z",
+              "updatedAt": "2024-05-23T08:56:21.620Z",
+              "barcode": "2913244159666",
               "qrCode": "https://dummyjson.com/public/qr-code.png"
             },
             "images": [
-              "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/1.png"
+              "https://cdn.dummyjson.com/products/images/furniture/Bedside%20Table%20African%20Cherry/1.png",
+              "https://cdn.dummyjson.com/products/images/furniture/Bedside%20Table%20African%20Cherry/2.png",
+              "https://cdn.dummyjson.com/products/images/furniture/Bedside%20Table%20African%20Cherry/3.png"
             ],
-            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png"
+            "thumbnail": "https://cdn.dummyjson.com/products/images/furniture/Bedside%20Table%20African%20Cherry/thumbnail.png"
           },
-          "id": "3468",
-          "quantity": 4,
+          "id": "4a35",
+          "quantity": 1,
           "user": "63e8"
         }
       ],
-      "totalAmount": 139.93,
-      "totalItems": 7,
+      "totalAmount": 2165,
+      "totalItems": 2,
       "user": {
         "id": "63e8",
         "email": "bhavyramani29@gmail.com",
@@ -2099,28 +2103,29 @@
           {
             "name": "Bhavy",
             "email": "bhavyramani29@gmail.com",
-            "phone": "9998206486",
+            "phone": "999820648",
             "street": "New Sagar Society",
             "city": "Rajkot",
-            "state": "Gujarat",
-            "pincode": "360002"
+            "state": "Gujarati",
+            "pincode": "360089"
           }
-        ]
+        ],
+        "role": "user"
       },
       "paymentMethod": "cash",
       "selectedAddress": {
         "name": "Bhavy",
         "email": "bhavyramani29@gmail.com",
-        "phone": "9998206486",
+        "phone": "999820648",
         "street": "New Sagar Society",
         "city": "Rajkot",
-        "state": "Gujarat",
-        "pincode": "360002"
+        "state": "Gujarati",
+        "pincode": "360089"
       },
-      "status": "pending"
+      "status": "dispatched"
     },
     {
-      "id": "cf5d",
+      "id": "2a0d",
       "items": [
         {
           "0": {
@@ -2185,13 +2190,76 @@
             ],
             "thumbnail": "https://cdn.dummyjson.com/products/images/fragrances/Gucci%20Bloom%20Eau%20de/thumbnail.png"
           },
-          "id": "6655",
+          "id": "9790",
           "quantity": 1,
+          "user": "63e8"
+        },
+        {
+          "0": {
+            "id": "16",
+            "title": "Apple",
+            "description": "Fresh and crisp apples, perfect for snacking or incorporating into various recipes.",
+            "category": "groceries",
+            "price": 1.99,
+            "discountPercentage": 1.97,
+            "rating": 2.96,
+            "stock": 9,
+            "tags": [
+              "fruits"
+            ],
+            "sku": "QTROUV79",
+            "weight": 8,
+            "dimensions": {
+              "width": 8.29,
+              "height": 5.58,
+              "depth": 12.41
+            },
+            "warrantyInformation": "2 year warranty",
+            "shippingInformation": "Ships in 2 weeks",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 4,
+                "comment": "Great product!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Logan Lee",
+                "reviewerEmail": "logan.lee@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Great product!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Elena Long",
+                "reviewerEmail": "elena.long@x.dummyjson.com"
+              },
+              {
+                "rating": 1,
+                "comment": "Not as described!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Grayson Coleman",
+                "reviewerEmail": "grayson.coleman@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "60 days return policy",
+            "minimumOrderQuantity": 44,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.620Z",
+              "updatedAt": "2024-05-23T08:56:21.620Z",
+              "barcode": "2517819903837",
+              "qrCode": "https://dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/groceries/Apple/1.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/groceries/Apple/thumbnail.png"
+          },
+          "id": "c8df",
+          "quantity": 3,
           "user": "63e8"
         }
       ],
-      "totalAmount": 79.99,
-      "totalItems": 1,
+      "totalAmount": 79,
+      "totalItems": 4,
       "user": {
         "id": "63e8",
         "email": "bhavyramani29@gmail.com",
@@ -2200,34 +2268,26 @@
           {
             "name": "Bhavy",
             "email": "bhavyramani29@gmail.com",
-            "phone": "9998206486",
+            "phone": "999820648",
             "street": "New Sagar Society",
             "city": "Rajkot",
-            "state": "Gujarat",
-            "pincode": "360002"
-          },
-          {
-            "name": "a",
-            "email": "bhai",
-            "phone": "a",
-            "street": "city main",
-            "city": "a",
-            "state": "aa",
-            "pincode": "a"
+            "state": "Gujarati",
+            "pincode": "360089"
           }
-        ]
+        ],
+        "role": "user"
       },
       "paymentMethod": "cash",
       "selectedAddress": {
         "name": "Bhavy",
         "email": "bhavyramani29@gmail.com",
-        "phone": "9998206486",
+        "phone": "999820648",
         "street": "New Sagar Society",
         "city": "Rajkot",
-        "state": "Gujarat",
-        "pincode": "360002"
+        "state": "Gujarati",
+        "pincode": "360089"
       },
-      "status": "pending"
+      "status": "canceled"
     }
   ]
 }
