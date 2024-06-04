@@ -6,10 +6,10 @@ import {
   fetchCategoriesAsync,
   selectCategories,
   fetchBrandsAsync,
-  selectBrands
+  selectBrands,
+  selectProductStatus
 } from '../ProductSlice';
 
-import { Fragment } from 'react'
 import {
   Dialog,
   DialogPanel,
@@ -28,6 +28,7 @@ import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from
 import { Link } from 'react-router-dom';
 import { ITEMS_PER_PAGE, discountedPrice } from '../../../app/constants';
 import Pagination from '../../common/Pagination';
+import { Blocks } from 'react-loader-spinner';
 
 const sortOptions = [
   { name: 'Best Rating', sort: 'rating', order: 'desc', current: false },
@@ -340,49 +341,67 @@ function DesktopFilter({ handleFilter, filters }) {
 
 
 function ProductGrid({ products }) {
+  const status = useSelector(selectProductStatus);
   return (
     <div className="bg-white">
-      <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
-        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-          {products.map((product, i) => (
-            !product.deleted &&
-            <Link to={`/product-detail/${product.id}`} key={`product-${i}`}>
-              <div key={product.id} className="group relative border-solid border-gray-200 border-2 p-2">
-                <div className="min-h-80 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
-                  <img
-                    src={product.thumbnail}
-                    alt={product.title}
-                    className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                  />
-                </div>
-                <div className="mt-4 flex justify-between">
-                  <div>
-                    <h3 className="text-sm text-gray-700">
-                      <a href={product.thumbnail}>
-                        <span aria-hidden="true" className="absolute inset-0" />
-                        {product.title}
-                      </a>
-                    </h3>
-                    <div className="mt-1 text-sm text-gray-500 flex items-center">
-                      <StarIcon className='w-6 h-6 mr-2'>
-                      </StarIcon>
-                      {product.rating}
+      {status == 'loading' ?
+        <Blocks
+          height="80"
+          width="80"
+          color="#4fa94d"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+          visible={true}
+        /> : <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
+          <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+            {products.map((product, i) => (
+              !product.deleted &&
+              <Link to={`/product-detail/${product.id}`} key={`product-${i}`}>
+                <div key={product.id} className="group relative border-solid border-gray-200 border-2 p-2">
+                  <div className="min-h-80 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
+                    <img
+                      src={product.thumbnail}
+                      alt={product.title}
+                      className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                    />
+                  </div>
+                  <div className="mt-4 flex justify-between">
+                    <div>
+                      <h3 className="text-sm text-gray-700">
+                        <a href={product.thumbnail}>
+                          <span aria-hidden="true" className="absolute inset-0" />
+                          {product.title}
+                        </a>
+                      </h3>
+                      <div className="mt-1 text-sm text-gray-500 flex items-center">
+                        <StarIcon className='w-6 h-6 mr-2'>
+                        </StarIcon>
+                        {product.rating}
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-sm block font-medium text-gray-900">
+                        {"$" + discountedPrice(product)}
+                      </p>
+                      <p className="text-sm block font-medium text-gray-400 line-through">
+                        {"$" + Math.round(product.price)}
+                      </p>
                     </div>
                   </div>
-                  <div>
-                    <p className="text-sm block font-medium text-gray-900">
-                      {"$" + discountedPrice(product)}
-                    </p>
-                    <p className="text-sm block font-medium text-gray-400 line-through">
-                      {"$" + Math.round(product.price)}
-                    </p>
-                  </div>
+                  {
+                    product.stock <= 0 &&
+                    <div>
+                      <p className='text-sm text-red-400'>Out of Stock</p>
+                    </div>
+                  }
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+      }
+
     </div>
   );
 }

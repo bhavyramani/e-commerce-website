@@ -4,9 +4,10 @@ import { Radio, RadioGroup } from '@headlessui/react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { selectProductById, fetchProductByIdAsync } from '../ProductSlice';
-import { addToCartAsync } from '../../cart/CartSlice';
+import { addToCartAsync, selectItems } from '../../cart/CartSlice';
 import { selectLoggedInUser } from '../../auth/authSlice';
 import { discountedPrice } from '../../../app/constants';
+import { useAlert } from 'react-alert';
 
 const colors = [
   { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
@@ -33,12 +34,19 @@ export default function ProductDetail() {
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
   const product = useSelector(selectProductById);
   const user = useSelector(selectLoggedInUser);
+  const items = useSelector(selectItems);
   const dispatch = useDispatch();
   const params = useParams();
+  const alertBox = useAlert();
 
   const handleCart = (e) => {
     e.preventDefault();
-    dispatch(addToCartAsync({ ...product, quantity: 1, user: user.id }));
+    if(items.findIndex(item=>item[0].id === product[0].id) === -1){
+      dispatch(addToCartAsync({ ...product, quantity: 1, user: user.id }));
+      alertBox.success("Added To Cart");
+    }else{
+      alertBox.show("Item is already in cart");
+    }
   };
 
   useEffect(() => {
@@ -245,13 +253,13 @@ export default function ProductDetail() {
                   </fieldset>
                 </div>
 
-                <button
+                {product[0].stock > 0 && <button
                   onClick={handleCart}
                   type="submit"
                   className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Add to Cart
-                </button>
+                </button>}
               </form>
             </div>
 

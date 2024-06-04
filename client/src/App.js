@@ -29,7 +29,12 @@ import LogOut from './features/auth/components/LogOut';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ProtectedAdmin from './features/auth/components/ProtectedAdmin';
 import AdminProductDetail from './features/admin/components/AdminProductDetail';
-
+import AlertTemplate from 'react-alert-template-basic';
+import { positions, Provider } from 'react-alert';
+const options = {
+  timeout: 5000,
+  position: positions.BOTTOM_LEFT
+}
 
 const router = createBrowserRouter([
   {
@@ -168,7 +173,9 @@ function App() {
   }, [dispatch, user?.id]);
   return (
     <div className="App">
-      <RouterProvider router={router} />
+      <Provider template={AlertTemplate} {...options}>
+        <RouterProvider router={router} />
+      </Provider>
     </div>
   );
 }
