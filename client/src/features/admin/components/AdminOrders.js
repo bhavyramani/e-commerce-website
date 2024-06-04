@@ -3,21 +3,19 @@ import { ITEMS_PER_PAGE } from '../../../app/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllOrdersAsync, selectOrders, selectTotalOrders, updateOrderAsync } from '../../order/OrderSlice';
 import { EyeIcon, PencilIcon } from '@heroicons/react/16/solid';
+import Pagination from '../../common/Pagination';
 
 const AdminOrders = () => {
-    const [page, setPage] = useState(1);
     const dispatch = useDispatch();
     const orders = useSelector(selectOrders);
-    const totalOrders = useSelector(selectTotalOrders);
     const [editableOrderId, seteditableOrderId] = useState(-1);
-
+    
     useEffect(() => {
-        const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
-        dispatch(fetchAllOrdersAsync(pagination));
-    }, [dispatch, page]);
+        handlePage();
+    }, [dispatch]);
 
     const handleShow = (order) => {
-        console.log("Soow");
+        
     };
 
     const handleEdit = (order) => {
@@ -29,8 +27,13 @@ const AdminOrders = () => {
         seteditableOrderId(-1);
     };
 
-    const chooseColor = (status)=>{
-        switch(status){
+    const handlePage = (e, page) => {
+        const pagination = { _page: page, _limit: ITEMS_PER_PAGE*20};
+        dispatch(fetchAllOrdersAsync(pagination));
+    };
+
+    const chooseColor = (status) => {
+        switch (status) {
             case 'pending':
                 return 'bg-purple-200 text-purple-600';
             case 'dispatched':
@@ -59,7 +62,8 @@ const AdminOrders = () => {
                                 </tr>
                             </thead>
                             <tbody className="text-gray-600 text-sm font-light">
-                                {orders && orders.map(order => <tr className="border-b border-gray-200 hover:bg-gray-100">
+                                {orders && orders.map((order, i) => 
+                                <tr key={'order'+i} className="border-b border-gray-200 hover:bg-gray-100">
                                     <td className="py-3 px-6 text-left whitespace-nowrap">
                                         <div className="flex items-center">
                                             <div className="mr-2">
@@ -69,9 +73,9 @@ const AdminOrders = () => {
                                         </div>
                                     </td>
                                     <td className="py-3 px-6 text-left">
-                                        {order.items.map((item) => {
+                                        {order.items.map((item, index) => {
                                             return (
-                                                <div className="flex items-center">
+                                                <div key={'item'+index} className="flex items-center">
                                                     <div className="mr-2">
                                                         <img
                                                             className="w-6 h-6 rounded-full"
@@ -93,13 +97,13 @@ const AdminOrders = () => {
                                             <select
                                                 onChange={e => handleUpdate(e, order)}
                                                 className="py-1 px-3 rounded-full text-xs">
-                                                <option className={`${chooseColor('pending')}`} value="pending">Pending</option>
-                                                <option className={`${chooseColor('dispatched')}`} value="dispatched">Dispatched</option>
-                                                <option className={`${chooseColor('canceled')}`} value="canceled">Canceled</option>
-                                                <option className={`${chooseColor('delivered')}`} value="delivered">Delivered</option>
+                                                <option value="pending">Pending</option>
+                                                <option value="dispatched">Dispatched</option>
+                                                <option value="canceled">Canceled</option>
+                                                <option value="delivered">Delivered</option>
                                             </select>
                                             :
-                                            <span className={`${chooseColor(order.status)} bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs`}>
+                                            <span className={`${chooseColor(order.status)} py-1 px-3 rounded-full text-xs`}>
                                                 {order.status}
                                             </span>}
                                     </td>

@@ -155,9 +155,9 @@ const Navbar = ({ children }) => {
 
                             <DisclosurePanel className="md:hidden">
                                 <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                                    {navigation.map((item) => (
+                                    {navigation.map((item, index) => (
                                         item[user.role] &&
-                                        <Link to={item.link} className=' cursor-pointer'>
+                                        <Link key={'nav1'+index} to={item.link} className=' cursor-pointer'>
                                             <DisclosureButton
                                                 key={item.name}
                                                 as="a"
@@ -195,8 +195,8 @@ const Navbar = ({ children }) => {
 
                                     </div>
                                     <div className="mt-3 space-y-1 px-2">
-                                        {userNavigation.map((item) => (
-                                            <Link to={item.link} className=' cursor-pointer'>
+                                        {userNavigation.map((item, index) => (
+                                            <Link to={item.link} key={'nav2'+index} className=' cursor-pointer'>
                                                 <DisclosureButton
                                                     key={item.name}
                                                     as="a"

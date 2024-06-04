@@ -19,9 +19,9 @@ export default function UserOrders() {
     return (
         <div>
             {orders &&
-                orders.map(order => {
+                orders.map((order, i) => {
                     return (
-                        <div className=" bg-white mt-12 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <div key={'order'+i} className=" bg-white mt-12 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                             {!order.items.length && <Navigate to='/' />}
                             <div className="border-t border-gray-200 px-4 py-6 sm:px-6 text-left">
                                 <h1 className="text-4xl font-bold tracking-tight text-gray-900 mb-7">Order #{order.id}</h1>
