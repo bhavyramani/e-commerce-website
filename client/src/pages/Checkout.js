@@ -21,7 +21,7 @@ const Checkout = () => {
     const currentOrder = useSelector(selectCurrentOrder);
 
     useEffect(() => {
-        dispatch(fetchItemsByUserIdAsync(user.id));
+        dispatch(fetchItemsByUserIdAsync());
     }, [dispatch, user]);
 
     const handleAddress = (e) => {

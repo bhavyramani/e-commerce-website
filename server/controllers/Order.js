@@ -3,9 +3,9 @@ const { Product } = require("../models/Product");
 const { User } = require("../models/User");
 
 exports.fetchOrdersByUser = async (req, res) => {
-    const { userId } = req.params;
+    const { id } = req.user;
     try {
-        const orders = await Order.find({ user: userId });
+        const orders = await Order.find({ user: id });
         for(order of orders){
             for(item of order.items){
                 delete item.user;

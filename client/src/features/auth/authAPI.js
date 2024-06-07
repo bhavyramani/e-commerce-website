@@ -17,8 +17,6 @@ export function createUser(userData) {
 export function checkUser(loginInfo) {
   return new Promise(async (resolve, reject) => {
     try {
-      const email = loginInfo.email;
-      const password = loginInfo.password;
       const response = await fetch('http://localhost:8080/auth/login', {
         method: 'POST',
         headers: {
@@ -28,6 +26,7 @@ export function checkUser(loginInfo) {
       });
       if(response.ok){
         const data = await response.json();
+        const headers = response.headers;
         resolve({ data });
       }else{
         const error = await response.json();

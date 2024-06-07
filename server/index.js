@@ -6,7 +6,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const crypto = require('crypto');
 const JwtStrategy = require('passport-jwt').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
+const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 
 const { User } = require('./models/User');
@@ -21,17 +21,19 @@ const ordersRouter = require('./routes/Order');
 const cors = require('cors');
 
 const SECRET_KEY = 'SECRET_KEY';
-const { isAuth, sanitizeUser } = require('./services/common');
+const { isAuth, sanitizeUser, cookieExtractor } = require('./services/common');
 
 let opts = {};
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.jwtFromRequest = cookieExtractor;
 opts.secretOrKey = SECRET_KEY;
 
+server.use(express.static('build'));
 server.use(session({
     secret: 'mysecret',
     resave: false,
     saveUninitialized: false,
 }));
+server.use(cookieParser());
 server.use(passport.authenticate('session'));
 
 server.use(cors({
@@ -47,46 +49,52 @@ server.use('/auth', authRouter.router);
 server.use('/cart', isAuth(), cartRouter.router);
 server.use('/order', isAuth(), ordersRouter.router);
 
-passport.use('local',
-    new LocalStrategy(
-        {usernameField:'email'},
-        async function (email, password, done) {
-            const user = await User.findOne({ email }).exec();
-            if (user == null || user == undefined) {
-                done(null, false, { message: "User not found" });
-            } else {
-                crypto.pbkdf2(
-                    password,
-                    user.salt,
-                    310000,
-                    32,
-                    'sha256',
-                    async function (err, hashedPassword) {
-                        try {
-                            if (!crypto.timingSafeEqual(hashedPassword, user.password)) {
-                                done(null, false, { message: "Invalid Credentials" });
-                            }
-                            const token = jwt.sign(sanitizeUser(user), SECRET_KEY);
-                            done(null, token);
-                        } catch (err) {
-                            done(err);
-                        }
-                    })
+passport.use(
+    'local',
+    new LocalStrategy({ usernameField: 'email' }, async function (
+        email,
+        password,
+        done
+    ) {
+        try {
+            const user = await User.findOne({ email: email });
+            if (!user) {
+                return done(null, false, { message: 'invalid credentials' }); // for safety
             }
+            crypto.pbkdf2(
+                password,
+                user.salt,
+                310000,
+                32,
+                'sha256',
+                async function (err, hashedPassword) {
+                    if (!crypto.timingSafeEqual(user.password, hashedPassword)) {
+                        return done(null, false, { message: 'invalid credentials' });
+                    }
+                    const token = jwt.sign(
+                        sanitizeUser(user),
+                        SECRET_KEY
+                    );
+                    done(null, { token }); // this lines sends to serializer
+                }
+            );
+        } catch (err) {
+            done(err);
         }
-    ));
+    })
+);
 
 passport.use('jwt',
     new JwtStrategy(opts, async function (jwt_payload, done) {
-        try{
-            const user = await User.findOne({ id: jwt_payload.sub });
+        try {
+            const user = await User.findById(jwt_payload.id);
             if (user) {
                 return done(null, sanitizeUser(user));
             } else {
                 return done(null, false);
             }
-        }catch(err){
-            return done(err);
+        } catch (err) {
+            return done(err, false);
         }
 
     }));

@@ -15,7 +15,6 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { selectItems } from '../cart/CartSlice'
 import { selectUserInfo } from '../user/userSlice'
-import { selectLoggedInUser } from '../auth/authSlice'
 
 const user = {
     name: 'Tom Cook',
@@ -40,7 +39,7 @@ function classNames(...classes) {
 }
 const Navbar = ({ children }) => {
     const items = useSelector(selectItems);
-    const user = useSelector(selectLoggedInUser);
+    const userInfo = useSelector(selectUserInfo);
 
     return (
         <div>
@@ -63,7 +62,7 @@ const Navbar = ({ children }) => {
                                         <div className="hidden md:block">
                                             <div className="ml-10 flex items-baseline space-x-4">
                                                 {navigation.map((item) => (
-                                                    item[user.role] &&
+                                                    item[userInfo.role] &&
                                                     <Link
                                                         key={item.name}
                                                         to={item.link}
@@ -105,7 +104,7 @@ const Navbar = ({ children }) => {
                                                     <MenuButton className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                                         <span className="absolute -inset-1.5" />
                                                         <span className="sr-only">Open user menu</span>
-                                                        <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+                                                        <img className="h-8 w-8 rounded-full" src={userInfo.imageUrl} alt="" />
                                                     </MenuButton>
                                                 </div>
                                                 <Transition
@@ -155,7 +154,7 @@ const Navbar = ({ children }) => {
                             <DisclosurePanel className="md:hidden">
                                 <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                                     {navigation.map((item, index) => (
-                                        item[user.role] &&
+                                        item[userInfo.role] &&
                                         <Link key={'nav1'+index} to={item.link} className=' cursor-pointer'>
                                             <DisclosureButton
                                                 key={item.name}
@@ -175,11 +174,11 @@ const Navbar = ({ children }) => {
                                 <div className="border-t border-gray-700 pb-3 pt-4">
                                     <div className="flex items-center px-5">
                                         <div className="flex-shrink-0">
-                                            <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
+                                            <img className="h-10 w-10 rounded-full" src={userInfo.imageUrl} alt="" />
                                         </div>
                                         <div className="ml-3">
-                                            <div className="text-base font-medium leading-none text-white">{user.name}</div>
-                                            <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
+                                            <div className="text-base font-medium leading-none text-white">{userInfo.name}</div>
+                                            <div className="text-sm font-medium leading-none text-gray-400">{userInfo.email}</div>
                                         </div>
                                         <Link to='cart' className="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                             <button

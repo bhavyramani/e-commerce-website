@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { selectProductById, fetchProductByIdAsync } from '../ProductSlice';
 import { addToCartAsync, selectItems } from '../../cart/CartSlice';
-import { selectLoggedInUser } from '../../auth/authSlice';
 import { discountedPrice } from '../../../app/constants';
 import { useAlert } from 'react-alert';
 
@@ -33,7 +32,6 @@ export default function ProductDetail() {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
   const product = useSelector(selectProductById);
-  const user = useSelector(selectLoggedInUser);
   const items = useSelector(selectItems);
   const dispatch = useDispatch();
   const params = useParams();
@@ -42,7 +40,7 @@ export default function ProductDetail() {
   const handleCart = (e) => {
     e.preventDefault();
     if (items.findIndex(item => item.product.id === product.id) === -1) {
-      dispatch(addToCartAsync({ ...product, quantity: 1, user: user.id, product: product.id}));
+      dispatch(addToCartAsync({ ...product, quantity: 1, product: product.id }));
       alertBox.success("Added To Cart");
     } else {
       alertBox.show("Item is already in cart");

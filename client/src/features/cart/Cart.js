@@ -28,7 +28,7 @@ export default function Cart() {
   };
 
   useEffect(() => {
-    dispatch(fetchItemsByUserIdAsync(user.id));
+    dispatch(fetchItemsByUserIdAsync());
   }, [dispatch, user?.id]);
 
   return (
