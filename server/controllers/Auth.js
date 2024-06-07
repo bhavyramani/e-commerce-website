@@ -1,29 +1,43 @@
-const {User} = require('../models/User');
+const { User } = require('../models/User');
+const crypto = require('crypto');
+const { sanitizeUser } = require('../services/common');
+const SECRET_KEY = 'SECRET';
+const jwt = require('jsonwebtoken');
 
 exports.createUser = async (req, res) => {
-    const user = new User(req.body);
-    try{
-        const doc = await user.save();
-        res.status(200).json(doc);
-    }catch(err){
+    try {
+        const salt = crypto.randomBytes(16);
+        crypto.pbkdf2(
+            req.body.password,
+            salt,
+            310000,
+            32,
+            'sha256',
+            async function (err, hashedPassword) {
+                try {
+                    const user = new User({ ...req.body, password: hashedPassword, salt });
+                    const doc = await user.save();
+                    req.login(sanitizeUser(doc), (err) => {
+                        if (err)
+                            res.status(400).json(err);
+                        else {
+                            const token = jwt.sign(sanitizeUser(doc), SECRET_KEY);
+                            res.status(201).json(token);
+                        }
+                    });
+                } catch (err) {
+                    res.status(400).json(err);
+                }
+            });
+    } catch (err) {
         return res.status(400).json(err);
     }
 };
 
 exports.loginUser = async (req, res) => {
-    const {email, password} = req.body;
-    try{
-        const user = await User.findOne({email});
-        if(!user){
-            res.status(400).json({message:"User not found"});
-        }
-        else if(user.password == password){
-            res.status(201).json({id:user.id, email:user.email, name:user.name, address:user.address, phone:user.phone, role:user.role, token:user.token});
-        }
-        else{
-            res.status(401).json({message:"Password is incorrect"});
-        }
-    }catch(err){
-        res.status(400).json({err});
-    }
+    res.json(req.user);
+};
+
+exports.checkUser = async (req, res) => {
+    res.json(req.user);
 };

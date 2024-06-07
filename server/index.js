@@ -1,6 +1,16 @@
 const express = require('express');
 const server = express();
 const mongoose = require('mongoose');
+const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const crypto = require('crypto');
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
+const jwt = require('jsonwebtoken');
+
+const { User } = require('./models/User');
+
 const productRouter = require('./routes/Product');
 const categoriesRouter = require('./routes/Category');
 const brandRouter = require('./routes/Brand');
@@ -10,18 +20,88 @@ const cartRouter = require('./routes/Cart');
 const ordersRouter = require('./routes/Order');
 const cors = require('cors');
 
+const SECRET_KEY = 'SECRET_KEY';
+const { isAuth, sanitizeUser } = require('./services/common');
+
+let opts = {};
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.secretOrKey = SECRET_KEY;
+
+server.use(session({
+    secret: 'mysecret',
+    resave: false,
+    saveUninitialized: false,
+}));
+server.use(passport.authenticate('session'));
+
 server.use(cors({
-    exposedHeaders:['X-Total-Count']
+    exposedHeaders: ['X-Total-Count']
 }));
 
 server.use(express.json());
-server.use('/products', productRouter.router);
-server.use('/categories', categoriesRouter.router);
-server.use('/brands', brandRouter.router);
-server.use('/users', userRouter.router);
+server.use('/products', isAuth(), productRouter.router);
+server.use('/categories', isAuth(), categoriesRouter.router);
+server.use('/brands', isAuth(), brandRouter.router);
+server.use('/users', isAuth(), userRouter.router);
 server.use('/auth', authRouter.router);
-server.use('/cart', cartRouter.router);
-server.use('/order', ordersRouter.router);
+server.use('/cart', isAuth(), cartRouter.router);
+server.use('/order', isAuth(), ordersRouter.router);
+
+passport.use('local',
+    new LocalStrategy(
+        {usernameField:'email'},
+        async function (email, password, done) {
+            const user = await User.findOne({ email }).exec();
+            if (user == null || user == undefined) {
+                done(null, false, { message: "User not found" });
+            } else {
+                crypto.pbkdf2(
+                    password,
+                    user.salt,
+                    310000,
+                    32,
+                    'sha256',
+                    async function (err, hashedPassword) {
+                        try {
+                            if (!crypto.timingSafeEqual(hashedPassword, user.password)) {
+                                done(null, false, { message: "Invalid Credentials" });
+                            }
+                            const token = jwt.sign(sanitizeUser(user), SECRET_KEY);
+                            done(null, token);
+                        } catch (err) {
+                            done(err);
+                        }
+                    })
+            }
+        }
+    ));
+
+passport.use('jwt',
+    new JwtStrategy(opts, async function (jwt_payload, done) {
+        try{
+            const user = await User.findOne({ id: jwt_payload.sub });
+            if (user) {
+                return done(null, sanitizeUser(user));
+            } else {
+                return done(null, false);
+            }
+        }catch(err){
+            return done(err);
+        }
+
+    }));
+
+passport.serializeUser(function (user, cb) {
+    process.nextTick(function () {
+        return cb(null, { id: user.id, role: user.role });
+    });
+});
+
+passport.deserializeUser(function (user, cb) {
+    process.nextTick(function () {
+        return cb(null, user);
+    });
+});
 
 async function main() {
     try {
