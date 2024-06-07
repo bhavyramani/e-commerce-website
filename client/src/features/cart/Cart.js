@@ -13,13 +13,13 @@ export default function Cart() {
   const dispatch = useDispatch();
   const items = useSelector(selectItems);
   const user = useSelector(selectLoggedInUser);
-  const totalAmount = items.reduce((amount, item) => amount + discountedPrice(item[0]) * item.quantity, 0);
+  const totalAmount = items.reduce((amount, item) => amount + discountedPrice(item.product) * item.quantity, 0);
   const totalItems = items.reduce((count, item) => count + item.quantity, 0);
   const status = useSelector(selectCartStatus);
   const [showModal, setShowModal] = useState(false);
   const alertBox = useAlert();
   const handleQuantity = (e, item) => {
-    dispatch(updateCartAsync({ ...item, quantity: +e.target.value }))
+    dispatch(updateCartAsync({ id:item.id, quantity: +e.target.value }))
   };
 
   const handleRemove = (itemId) => {
@@ -40,11 +40,11 @@ export default function Cart() {
           <div className="flow-root">
             <ul role="list" className="-my-6 divide-y divide-gray-200">
               {items.map((product, index) => (
-                <li key={product[0].id + '-' + index} className="flex py-6">
+                <li key={product.id + '-' + index} className="flex py-6">
                   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                     <img
-                      src={product[0].thumbnail}
-                      alt={product[0].title}
+                      src={product.product.images[0]}
+                      alt={product.product.title}
                       className="h-full w-full object-cover object-center"
                     />
                   </div>
@@ -53,11 +53,11 @@ export default function Cart() {
                     <div>
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <h3>
-                          <a href={product[0].href}>{product[0].title}</a>
+                          <a href={product.product.href}>{product.product.title}</a>
                         </h3>
-                        <p className="ml-4">${discountedPrice(product[0]) * product.quantity}</p>
+                        <p className="ml-4">${discountedPrice(product.product) * product.quantity}</p>
                       </div>
-                      <p className="mt-1 text-sm text-gray-500" style={{ "textAlign": "left" }}>{product[0].brand}</p>
+                      <p className="mt-1 text-sm text-gray-500" style={{ "textAlign": "left" }}>{product.brand}</p>
                     </div>
                     <div className="flex flex-1 items-end justify-between text-sm">
                       <div className="text-gray-500">

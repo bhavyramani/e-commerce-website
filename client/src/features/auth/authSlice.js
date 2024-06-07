@@ -23,10 +23,13 @@ export const createUserAsync = createAsyncThunk(
 
 export const checkUserAsync = createAsyncThunk(
   'user/checkUser',
-  async (loginInfo) => {
-    const response = await checkUser(loginInfo);
-    // The value we return becomes the `fulfilled` action payload
-    return response.data;
+  async (loginInfo, {rejectWithValue}) => {
+    try{
+      const response = await checkUser(loginInfo);
+      return response.data;
+    }catch(error){
+      return rejectWithValue(error);
+    }
   }
 );
 
@@ -80,6 +83,6 @@ export const authSlice = createSlice({
 
 export const selectLoggedInUser = (state) => state.auth.loggedInUser;
 export const selectError = (state) => state.auth.error;
-export const { increment} = authSlice.actions;
+export const { increment } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -4,15 +4,24 @@ const mongoose = require('mongoose');
 const productRouter = require('./routes/Product');
 const categoriesRouter = require('./routes/Category');
 const brandRouter = require('./routes/Brand');
+const userRouter = require('./routes/User');
+const authRouter = require('./routes/Auth');
+const cartRouter = require('./routes/Cart');
+const ordersRouter = require('./routes/Order');
 const cors = require('cors');
 
 server.use(cors({
     exposedHeaders:['X-Total-Count']
 }));
+
 server.use(express.json());
 server.use('/products', productRouter.router);
 server.use('/categories', categoriesRouter.router);
 server.use('/brands', brandRouter.router);
+server.use('/users', userRouter.router);
+server.use('/auth', authRouter.router);
+server.use('/cart', cartRouter.router);
+server.use('/order', ordersRouter.router);
 
 async function main() {
     try {
