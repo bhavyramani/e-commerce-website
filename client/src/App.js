@@ -23,7 +23,7 @@ import AdminProductFormPage from './pages/AdminProductFormPage';
 import AdminOrderPage from './pages/AdminOrderPage'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchItemsByUserIdAsync } from './features/cart/CartSlice';
-import { selectLoggedInUser } from './features/auth/authSlice';
+import { checkAuthAsync, selectLoggedInUser, selectUserCheked } from './features/auth/authSlice';
 import { fetchLoggedInUserAsync } from './features/user/userSlice';
 import LogOut from './features/auth/components/LogOut';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
@@ -165,6 +165,10 @@ const router = createBrowserRouter([
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
+  const userChecked = useSelector(selectUserCheked);
+  useEffect(() => {
+    dispatch(checkAuthAsync());
+  }, [dispatch]);
   useEffect(() => {
     if (user) {
       dispatch(fetchItemsByUserIdAsync());
@@ -173,9 +177,9 @@ function App() {
   }, [dispatch, user]);
   return (
     <div className="App">
-      <Provider template={AlertTemplate} {...options}>
+      {userChecked && <Provider template={AlertTemplate} {...options}>
         <RouterProvider router={router} />
-      </Provider>
+      </Provider>}
     </div>
   );
 }

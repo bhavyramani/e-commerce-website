@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 import { selectError, selectLoggedInUser } from '../authSlice';
-import { checkUserAsync } from '../authSlice';
+import { loginUserAsync } from '../authSlice';
 import { useForm } from 'react-hook-form';
 
 export default function Login() {
   const dispatch = useDispatch();
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const user = useSelector(selectLoggedInUser);
   const error = useSelector(selectError);
   return (
@@ -26,7 +26,7 @@ export default function Login() {
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form noValidate className="space-y-6" onSubmit={handleSubmit((data) => {
-          dispatch(checkUserAsync({ email: data.email, password: data.password }));
+          dispatch(loginUserAsync({ email: data.email, password: data.password }));
         })} method="POST">
           <div>
             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900" style={{ "textAlign": "left" }}>

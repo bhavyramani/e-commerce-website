@@ -204,7 +204,7 @@ const UserProfile = () => {
 
                 Your Addresses:
                 {
-                    user.addresses.map((address, index) => {
+                    user.addresses?.map((address, index) => {
                         return (
                             <div>
                                 {selectedEditIndex == index && <form className='bg-white px-5 py-12 pb-10' noValidate onSubmit={

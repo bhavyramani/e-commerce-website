@@ -15,7 +15,7 @@ export default function Cart() {
   const user = useSelector(selectLoggedInUser);
   const totalAmount = items.reduce((amount, item) => amount + discountedPrice(item.product) * item.quantity, 0);
   const totalItems = items.reduce((count, item) => count + item.quantity, 0);
-  const status = useSelector(selectCartStatus);
+  const cartLoaded = useSelector(selectCartStatus);
   const [showModal, setShowModal] = useState(false);
   const alertBox = useAlert();
   const handleQuantity = (e, item) => {
@@ -33,10 +33,10 @@ export default function Cart() {
 
   return (
     <>
-      {!items.length && <Navigate to='/' />}
+      {!items.length && !cartLoaded && <Navigate to='/' />}
       <div className=" bg-white mt-12 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 mb-7">Cart</h1>
+          <h1 className="text-4xl font-bold tracking-tight text-gray-900 mb-7">Cart {totalItems == 0 && ' is Empty'}</h1>
           <div className="flow-root">
             <ul role="list" className="-my-6 divide-y divide-gray-200">
               {items.map((product, index) => (
@@ -99,7 +99,7 @@ export default function Cart() {
           </div>
         </div>
 
-        <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+        {totalItems > 0 ? <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
           <div className="flex justify-between text-base font-medium text-gray-900">
             <p>Total Items in Cart</p>
             <p>{totalItems}</p>
@@ -132,7 +132,8 @@ export default function Cart() {
               </button>
             </p>
           </div>
-        </div>
+        </div>:""
+        }
       </div>
     </>
   );

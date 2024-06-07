@@ -40,7 +40,7 @@ exports.createUser = async (req, res) => {
     }
 };
 
-exports.loginUser = async (req, res) => { 
+exports.loginUser = async (req, res) => {
     const user = req.user;
     res
         .cookie('jwt', req.user.token, {
@@ -51,6 +51,9 @@ exports.loginUser = async (req, res) => {
         .json(user);
 };
 
-exports.checkUser = async (req, res) => {
-    res.json(req.user);
+exports.checkAuth = async (req, res) => {
+    if (req.user)
+        res.json(req.user);
+    else
+        res.status(401).json({ message: 'Unauthorized' });
 };
