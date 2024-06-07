@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { clearSelectedProduct, createProductAsync, fetchProductByIdAsync, selectBrands, selectCategories, selectProductById, updateProductAsync } from '../../product-list/ProductSlice';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
-import { fetchProductById } from '../../product-list/ProductAPI';
+import { Navigate, useParams } from 'react-router-dom';
+import { useAlert } from 'react-alert';
 
 const ProductForm = () => {
     const brands = useSelector(selectBrands);
@@ -12,11 +12,13 @@ const ProductForm = () => {
     const { register, handleSubmit, setValue, reset, formState: { errors } } = useForm();
     const params = useParams();
     const selectedProduct = useSelector(selectProductById);
+    const alert = useAlert();
 
     const handleDelete = ()=>{
-        const product = {...selectedProduct[0]};
+        const product = {...selectedProduct};
         product.deleted = true;
         dispatch(updateProductAsync(product));
+        alert.success('Product Deleted Successfully');
     };
 
     useEffect(() => {
@@ -29,18 +31,18 @@ const ProductForm = () => {
     useEffect(() => {
         if (!selectedProduct || !params.id)
             return;
-        setValue('title', selectedProduct[0].title);
-        setValue('description', selectedProduct[0].description);
-        setValue('price', selectedProduct[0].price);
-        setValue('discountPercentage', selectedProduct[0].discountPercentage);
-        setValue('stock', selectedProduct[0].stock);
-        setValue('thumbnail', selectedProduct[0].images[0]);
-        if (selectedProduct[0].images.length > 1)
-            setValue('image1', selectedProduct[0].images[1]);
-        if (selectedProduct[0].images.length > 2)
-            setValue('image2', selectedProduct[0].images[2]);
-        if (selectedProduct[0].images.length > 3)
-            setValue('image3', selectedProduct[0].images[3]);
+        setValue('title', selectedProduct.title);
+        setValue('description', selectedProduct.description);
+        setValue('price', selectedProduct.price);
+        setValue('discountPercentage', selectedProduct.discountPercentage);
+        setValue('stock', selectedProduct.stock);
+        setValue('thumbnail', selectedProduct.images[0]);
+        if (selectedProduct.images.length > 1)
+            setValue('image1', selectedProduct.images[1]);
+        if (selectedProduct.images.length > 2)
+            setValue('image2', selectedProduct.images[2]);
+        if (selectedProduct.images.length > 3)
+            setValue('image3', selectedProduct.images[3]);
     }, [selectedProduct, params.id, dispatch]);
     return (
         <div>
@@ -61,9 +63,11 @@ const ProductForm = () => {
                     if (params.id){
                         product.id = params.id;
                         dispatch(updateProductAsync(product));
+                        alert.success('Product Updated Successfully');
                     }
                     else{
                         dispatch(createProductAsync(product));
+                        alert.success('Product Created Successfully');
                         reset();
                     }
                 })}

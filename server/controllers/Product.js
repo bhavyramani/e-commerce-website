@@ -1,11 +1,13 @@
 const { Product } = require('../models/Product');
 
 exports.createProduct = async (req, res) => {
-    const product = new Product(req.body);
+    let product = new Product(req.body);
+    product['thumbnail'] = product.images[0];
+    product.images.splice(0,1);
     try {
         const doc = await product.save();
         return res.status(201).json(doc);
-    } catch (err) {
+        } catch (err) {
         return res.status(400).json(err);
     }
 };
@@ -51,7 +53,7 @@ exports.fetchProductById = async (req, res) => {
 };
 
 exports.updateProduct = async (req, res) => {
-    const id = req.body.id;
+    const id = req.params.id;
     try{
         const product = await Product.findByIdAndUpdate(id, req.body, {new:true});
         res.status(200).json(product);

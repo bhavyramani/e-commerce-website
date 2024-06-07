@@ -5,5 +5,5 @@ const {createProduct, fetchAllProducts, fetchProductById, updateProduct} = requi
 router.post('/', createProduct);
 router.get('/', fetchAllProducts);
 router.get('/:id', fetchProductById);
-router.patch('/', updateProduct);
+router.patch('/:id', updateProduct);
 exports.router = router;

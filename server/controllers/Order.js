@@ -3,9 +3,9 @@ const { Product } = require("../models/Product");
 const { User } = require("../models/User");
 
 exports.fetchOrdersByUser = async (req, res) => {
-    const { user } = req.query;
+    const { userId } = req.params;
     try {
-        const orders = await Order.find({ user: user });
+        const orders = await Order.find({ user: userId });
         for(order of orders){
             for(item of order.items){
                 delete item.user;
@@ -59,7 +59,6 @@ exports.fetchAllOrders = async (req, res) => {
     }
 
     const totalDocs = await totalOrdersQuery.count().exec();
-    console.log({ totalDocs });
 
     if (req.query._page && req.query._limit) {
         const pageSize = req.query._limit;
