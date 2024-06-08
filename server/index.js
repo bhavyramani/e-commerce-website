@@ -8,6 +8,9 @@ const crypto = require('crypto');
 const JwtStrategy = require('passport-jwt').Strategy;
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+const path = require('path');
+dotenv.config();
 
 const { User } = require('./models/User');
 
@@ -20,14 +23,14 @@ const cartRouter = require('./routes/Cart');
 const ordersRouter = require('./routes/Order');
 const cors = require('cors');
 
-const SECRET_KEY = 'SECRET_KEY';
+const SECRET_KEY = process.env.SECRET_KEY;
 const { isAuth, sanitizeUser, cookieExtractor } = require('./services/common');
 
 let opts = {};
 opts.jwtFromRequest = cookieExtractor;
 opts.secretOrKey = SECRET_KEY;
 
-server.use(express.static('build'));
+server.use(express.static(path.resolve(__dirname, 'build')));
 server.use(session({
     secret: 'mysecret',
     resave: false,
@@ -75,7 +78,7 @@ passport.use(
                         sanitizeUser(user),
                         SECRET_KEY
                     );
-                    done(null, { id:user.id, role:user.role }); // this lines sends to serializer
+                    done(null, { id: user.id, role: user.role, token }); // this lines sends to serializer
                 }
             );
         } catch (err) {

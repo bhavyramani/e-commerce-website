@@ -1,10 +1,12 @@
 const passport = require('passport');
-exports.isAuth = (req, res, done)=> {
+const nodemailer = require('nodemailer');
+
+exports.isAuth = (req, res, done) => {
     return passport.authenticate('jwt');
 }
 
 exports.sanitizeUser = (user) => {
-    return {id:user.id, role:user.role};
+    return { id: user.id, role: user.role };
 }
 
 exports.cookieExtractor = (req) => {
@@ -13,6 +15,26 @@ exports.cookieExtractor = (req) => {
         token = req.cookies['jwt'];
     }
     // Just for testing
-    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjJmZTZiMjA0NGU5MWE1ZjZkYTE0OSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzE3NzczNjI4fQ.tl9mj-yTfgkrJYo27iRsEiOmsmousyoGLs_0rOPOzXY";
+    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjQzYWYyMzU4ZjAwNjg4ZWE1MGJjMCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzE3ODQ2NjkyfQ.n3QJBSY5fvxICvEwf9RZXGDNoHXcZQgSKOLHSuYMoCA";
     return token;
 }
+
+const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, // Use `true` for port 465, `false` for all other ports
+    auth: {
+        user: "ramanibhavy89@gmail.com",
+        pass: process.env.MAIL_PASSWORD,
+    },
+});
+
+exports.sendMail = async ({ to, subject, html }) => {
+    const info = await transporter.sendMail({
+        from: '"E-Commerce" <bhavy@ecommerce.com>', // sender address
+        to,
+        subject,
+        html
+    });
+    return info;
+};

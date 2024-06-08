@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 import {
   createBrowserRouter,
   RouterProvider,
-  Route,
-  Link,
 } from "react-router-dom";
 
 import './App.css';
@@ -30,6 +28,7 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ProtectedAdmin from './features/auth/components/ProtectedAdmin';
 import AdminProductDetail from './features/admin/components/AdminProductDetail';
 import AlertTemplate from 'react-alert-template-basic';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 import { positions, Provider } from 'react-alert';
 const options = {
   timeout: 5000,
@@ -151,6 +150,12 @@ const router = createBrowserRouter([
     path: "/forgot-password",
     element: (
       <ForgotPasswordPage></ForgotPasswordPage>
+    )
+  },
+  {
+    path: "/reset-password",
+    element: (
+      <ResetPasswordPage></ResetPasswordPage>
     )
   },
   {

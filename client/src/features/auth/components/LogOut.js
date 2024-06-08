@@ -8,7 +8,7 @@ const LogOut = () => {
     const dispatch = useDispatch();
     const user = useSelector(selectUserInfo);
     useEffect(() => {
-        dispatch(signOutAsync(user.id));
+        dispatch(signOutAsync());
     }, [dispatch]);
 
     return (
