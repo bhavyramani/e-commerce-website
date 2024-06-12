@@ -47,7 +47,7 @@ export const orderSlice = createSlice({
     increment: (state) => {
       state.value += 1;
     },
-    resetOrder:(state)=>{
+    resetOrder: (state) => {
       state.currentOrder = null;
     }
   },
@@ -66,7 +66,7 @@ export const orderSlice = createSlice({
       })
       .addCase(fetchAllOrdersAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.orders= action.payload.orders;
+        state.orders = action.payload.orders;
         state.totalOrders = action.payload.totalOrders;
       })
       .addCase(updateOrderAsync.pending, (state) => {
@@ -74,7 +74,7 @@ export const orderSlice = createSlice({
       })
       .addCase(updateOrderAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        const index = state.orders.findIndex(order=>order.id == action.payload.id);
+        const index = state.orders.findIndex(order => order.id == action.payload.id);
         state.orders[index] = action.payload;
       })
       ;

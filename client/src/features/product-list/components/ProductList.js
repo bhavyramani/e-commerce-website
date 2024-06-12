@@ -7,7 +7,8 @@ import {
   selectCategories,
   fetchBrandsAsync,
   selectBrands,
-  selectProductStatus
+  selectProductStatus,
+  selectTotalProducts
 } from '../ProductSlice';
 
 import {
@@ -32,8 +33,8 @@ import { Blocks } from 'react-loader-spinner';
 
 const sortOptions = [
   { name: 'Best Rating', sort: 'rating', order: 'desc', current: false },
-  { name: 'Price: Low to High', sort: 'price', order: 'asc', current: false },
-  { name: 'Price: High to Low', sort: 'price', order: 'desc', current: false },
+  { name: 'Price: High to Low', sort: 'discountPrice', order: 'desc', current: false },
+  { name: 'Price: Low to High', sort: 'discountPrice', order: 'asc', current: false },
 ]
 
 function classNames(...classes) {
@@ -42,7 +43,6 @@ function classNames(...classes) {
 
 
 export default function ProductList() {
-
   const dispatch = useDispatch();
   const products = useSelector(selectAllProducts);
   const categories = useSelector(selectCategories);
@@ -51,6 +51,7 @@ export default function ProductList() {
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState({});
   const [page, setPage] = useState(1);
+  const totalProducts = useSelector(selectTotalProducts);
   const filters = [
     {
       id: 'brand',
@@ -186,7 +187,7 @@ export default function ProductList() {
           </section>
           {/* Section of product and filter ends here */}
 
-          <Pagination page={page} setPage={setPage} handlePage={handlePage} totalItems={products.length}></Pagination>
+          <Pagination page={page} setPage={setPage} handlePage={handlePage} totalItems={totalProducts}></Pagination>
 
         </main>
       </div>

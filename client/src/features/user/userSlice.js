@@ -3,7 +3,7 @@ import { fetchLoggedInUserOrders, updateUser, fetchLoggedInUser } from './userAP
 
 const initialState = {
   userOrders: [],
-  userInfo : {},
+  userInfo: {},
   status: 'idle',
 };
 
@@ -61,7 +61,7 @@ export const userSlice = createSlice({
       })
       .addCase(updateUserAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.userInfo  = action.payload;
+        state.userInfo = action.payload;
       })
       .addCase(fetchLoggedInUserAsync.pending, (state) => {
         state.status = 'loading';
@@ -74,7 +74,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const { increment} = userSlice.actions;
+export const { increment } = userSlice.actions;
 
 export const selectUserOrders = (state) => state.user.userInfo.orders;
 export const selectUserInfo = (state) => state.user.userInfo;

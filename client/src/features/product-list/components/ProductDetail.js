@@ -8,29 +8,13 @@ import { addToCartAsync, selectItems } from '../../cart/CartSlice';
 import { discountedPrice } from '../../../app/constants';
 import { useAlert } from 'react-alert';
 
-const colors = [
-  { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
-  { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
-  { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
-];
-const sizes = [
-  { name: 'XXS', inStock: false },
-  { name: 'XS', inStock: true },
-  { name: 'S', inStock: true },
-  { name: 'M', inStock: true },
-  { name: 'L', inStock: true },
-  { name: 'XL', inStock: true },
-  { name: '2XL', inStock: true },
-  { name: '3XL', inStock: true },
-]
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function ProductDetail() {
-  const [selectedColor, setSelectedColor] = useState(colors[0]);
-  const [selectedSize, setSelectedSize] = useState(sizes[2]);
+  const [selectedColor, setSelectedColor] = useState();
+  const [selectedSize, setSelectedSize] = useState();
   const product = useSelector(selectProductById);
   const items = useSelector(selectItems);
   const dispatch = useDispatch();
@@ -39,8 +23,9 @@ export default function ProductDetail() {
 
   const handleCart = (e) => {
     e.preventDefault();
-    if (items.findIndex(item => item.product.id === product.id) === -1) {
-      dispatch(addToCartAsync({ ...product, quantity: 1, product: product.id }));
+    if (items.findIndex(item => (item.product.id === product.id)) === -1) {
+      const newItem = { ...product, quantity: 1, product: product.id };
+      dispatch(addToCartAsync(newItem));
       alertBox.success("Added To Cart");
     } else {
       alertBox.show("Item is already in cart");
@@ -154,7 +139,7 @@ export default function ProductDetail() {
 
                   <fieldset aria-label="Choose a color" className="mt-4">
                     <RadioGroup value={selectedColor} onChange={setSelectedColor} className="flex items-center space-x-3">
-                      {colors.map((color) => (
+                      {product.colors?.map((color) => (
                         <Radio
                           key={color.name}
                           value={color}
@@ -195,7 +180,7 @@ export default function ProductDetail() {
                       onChange={setSelectedSize}
                       className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4"
                     >
-                      {sizes.map((size) => (
+                      {product.sizes?.map((size) => (
                         <Radio
                           key={size.name}
                           value={size}

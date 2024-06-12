@@ -19,7 +19,7 @@ export default function Cart() {
   const [showModal, setShowModal] = useState(false);
   const alertBox = useAlert();
   const handleQuantity = (e, item) => {
-    dispatch(updateCartAsync({ id:item.id, quantity: +e.target.value }))
+    dispatch(updateCartAsync({ id: item.id, quantity: +e.target.value }))
   };
 
   const handleRemove = (itemId) => {
@@ -43,7 +43,7 @@ export default function Cart() {
                 <li key={product.id + '-' + index} className="flex py-6">
                   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                     <img
-                      src={product.product.images[0]}
+                      src={product.product.thumbnail}
                       alt={product.product.title}
                       className="h-full w-full object-cover object-center"
                     />
@@ -132,7 +132,7 @@ export default function Cart() {
               </button>
             </p>
           </div>
-        </div>:""
+        </div> : ""
         }
       </div>
     </>

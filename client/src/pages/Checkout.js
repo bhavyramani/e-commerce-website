@@ -38,7 +38,7 @@ const Checkout = () => {
                 items,
                 totalAmount,
                 totalItems,
-                user:user.id,
+                user: user.id,
                 paymentMethod,
                 selectedAddress,
                 status: 'pending'
@@ -287,7 +287,7 @@ const Checkout = () => {
                                                         <h3>
                                                             <a href={product.product.href}>{product.product.title}</a>
                                                         </h3>
-                                                        <p className="ml-4">${discountedPrice(product.product)*product.quantity}</p>
+                                                        <p className="ml-4">${discountedPrice(product.product) * product.quantity}</p>
                                                     </div>
                                                     <p className="mt-1 text-sm text-gray-500" style={{ "textAlign": "left" }}>{product.product.brand}</p>
                                                 </div>

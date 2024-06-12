@@ -14,9 +14,8 @@ const productSchema = new Schema({
     images: { type: [String], required: true },
     colors: { type: [Schema.Types.Mixed] },
     sizes: { type: [Schema.Types.Mixed] },
-    highlights: { type: [String] },
-    discountPrice: { type: Number },
     deleted: { type: Boolean, default: false },
+    discountPrice: { type: Number }
 });
 
 const virtual = productSchema.virtual('id');
@@ -25,9 +24,9 @@ virtual.get(function () {
 });
 
 productSchema.set('toJSON', {
-    virtuals:true,
-    versionKey:false,
-    transform: function(doc, ret){delete ret._id}
+    virtuals: true,
+    versionKey: false,
+    transform: function (doc, ret) { delete ret._id }
 });
 
 exports.Product = mongoose.model('Product', productSchema);

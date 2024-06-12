@@ -1,13 +1,14 @@
 const { Order } = require("../models/Order");
 const { Product } = require("../models/Product");
 const { User } = require("../models/User");
+const { sendMail, invoiceTemplate } = require("../services/common");
 
 exports.fetchOrdersByUser = async (req, res) => {
     const { id } = req.user;
     try {
         const orders = await Order.find({ user: id });
-        for(order of orders){
-            for(item of order.items){
+        for (order of orders) {
+            for (item of order.items) {
                 delete item.user;
             }
         }
@@ -21,6 +22,8 @@ exports.createOrder = async (req, res) => {
     let order = new Order(req.body);
     try {
         const doc = await order.save();
+        const user = await User.findById(doc.user);
+        sendMail({ to: user.email, html: invoiceTemplate(order), subject: "Order Received" });
         res.status(201).json(doc);
     } catch (err) {
         res.status(400).json(err);

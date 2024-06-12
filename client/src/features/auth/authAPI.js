@@ -60,7 +60,7 @@ export function resetPasswordRequest(email) {
     try {
       const response = await fetch('http://localhost:8080/auth/reset-password-request', {
         method: 'POST',
-        body: JSON.stringify({email}),
+        body: JSON.stringify({ email }),
         headers: { 'content-type': 'application/json' },
       });
       if (response.ok) {
@@ -71,7 +71,7 @@ export function resetPasswordRequest(email) {
         reject(error);
       }
     } catch (error) {
-      reject( error );
+      reject(error);
     }
 
   });
@@ -88,18 +88,17 @@ export function signOut() {
         reject(error);
       }
     } catch (error) {
-      console.log(error)
       reject(error);
     }
   });
 }
 
-export function resetPassword({email, token, password}) {
+export function resetPassword({ email, token, password }) {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await fetch('http://localhost:8080/auth/reset-password', {
         method: 'POST',
-        body: JSON.stringify({email, token, password}),
+        body: JSON.stringify({ email, token, password }),
         headers: { 'content-type': 'application/json' },
       });
       if (response.ok) {
@@ -110,7 +109,7 @@ export function resetPassword({email, token, password}) {
         reject(error);
       }
     } catch (error) {
-      reject( error );
+      reject(error);
     }
 
   });

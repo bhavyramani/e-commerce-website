@@ -6,7 +6,8 @@ import {
   fetchCategoriesAsync,
   selectCategories,
   fetchBrandsAsync,
-  selectBrands
+  selectBrands,
+  selectTotalProducts
 } from '../../product-list/ProductSlice';
 
 import { Fragment } from 'react'
@@ -32,8 +33,8 @@ import { ITEMS_PER_PAGE, discountedPrice } from '../../../app/constants';
 
 const sortOptions = [
   { name: 'Best Rating', sort: 'rating', order: 'desc', current: false },
-  { name: 'Price: Low to High', sort: 'price', order: 'asc', current: false },
-  { name: 'Price: High to Low', sort: 'price', order: 'desc', current: false },
+  { name: 'Price: Low to High', sort: 'discountPrice', order: 'asc', current: false },
+  { name: 'Price: High to Low', sort: 'discountPrice', order: 'desc', current: false },
 ]
 
 function classNames(...classes) {
@@ -51,6 +52,7 @@ export default function AdminProductList() {
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState({});
   const [page, setPage] = useState(1);
+  const totalProducts = useSelector(selectTotalProducts);
   const filters = [
     {
       id: 'brand',
@@ -193,7 +195,7 @@ export default function AdminProductList() {
           </section>
           {/* Section of product and filter ends here */}
 
-          <Pagination page={page} setPage={setPage} handlePage={handlePage} totalItems={products.length}></Pagination>
+          <Pagination page={page} setPage={setPage} handlePage={handlePage} totalItems={totalProducts}></Pagination>
 
         </main>
       </div>
@@ -346,7 +348,7 @@ function DesktopFilter({ handleFilter, filters }) {
   );
 }
 
-function Pagination({ page, setPage, handlePage, totalItems = 55 }) {
+function Pagination({ page, setPage, handlePage, totalItems }) {
   const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
   return (
     <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">

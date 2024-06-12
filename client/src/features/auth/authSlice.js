@@ -34,9 +34,9 @@ export const resetPasswordRequestAsync = createAsyncThunk(
 );
 
 export const resetPasswordAsync = createAsyncThunk(
-  'user/resetPassword', 
-  async ({email, token, password}) => {
-    const response = await resetPassword({email, token, password});
+  'user/resetPassword',
+  async ({ email, token, password }) => {
+    const response = await resetPassword({ email, token, password });
     // The value we return becomes the `fulfilled` action payload
     return response.data;
   }
@@ -45,11 +45,11 @@ export const resetPasswordAsync = createAsyncThunk(
 
 export const loginUserAsync = createAsyncThunk(
   'user/loginUser',
-  async (loginInfo, {rejectWithValue}) => {
-    try{
+  async (loginInfo, { rejectWithValue }) => {
+    try {
       const response = await loginUser(loginInfo);
       return response.data;
-    }catch(error){
+    } catch (error) {
       return rejectWithValue(error);
     }
   }
@@ -58,11 +58,11 @@ export const loginUserAsync = createAsyncThunk(
 export const checkAuthAsync = createAsyncThunk(
   'user/checkAuth',
   async () => {
-    try{
+    try {
       const response = await checkAuth();
       return response.data;
-    }catch(error){
-      return {error};
+    } catch (error) {
+      return { error };
     }
   }
 );

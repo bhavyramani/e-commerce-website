@@ -6,10 +6,10 @@ import Footer from '../features/common/Footer';
 const AdminHome = () => {
   return (
     <div>
-        <Navbar>
-            <AdminProductList></AdminProductList>
-        </Navbar>
-        <Footer></Footer>
+      <Navbar>
+        <AdminProductList></AdminProductList>
+      </Navbar>
+      <Footer></Footer>
     </div>
   )
 }

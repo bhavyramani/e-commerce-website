@@ -37,7 +37,7 @@ const UserProfile = () => {
         setValue('pincode', address.pincode);
     };
 
-    const handleAdd = ()=>{
+    const handleAdd = () => {
         setshowAddForm(true);
         setselectedEditIndex(-1);
         setValue('name', '');
@@ -46,7 +46,7 @@ const UserProfile = () => {
         setValue('street', '');
         setValue('city', '');
         setValue('state', '');
-        setValue('pincode', );
+        setValue('pincode',);
     };
 
     return (
@@ -62,7 +62,7 @@ const UserProfile = () => {
                     Admin Panel
                 </h3>}
                 <button
-                    onClick={e=>handleAdd()}
+                    onClick={e => handleAdd()}
                     className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
                 >
                     Add New Address
@@ -206,7 +206,7 @@ const UserProfile = () => {
                 {
                     user.addresses?.map((address, index) => {
                         return (
-                            <div>
+                            <div key={`address-${index}`}>
                                 {selectedEditIndex == index && <form className='bg-white px-5 py-12 pb-10' noValidate onSubmit={
                                     handleSubmit((data) => {
                                         handleEdit(data, index);

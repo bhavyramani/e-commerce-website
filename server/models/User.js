@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 
 const userSchema = new Schema({
-    email : {type:String, required:true, unique:true},
-    password : {type:Buffer, required:true},
-    role : {type:String, required:true, default:'user'},
-    addresses : {type:[Schema.Types.Mixed], required:true},
-    name: {type:String},
-    salt : {type:Buffer},
-    resetPasswordToken: {type:String, default:''}
+    email: { type: String, required: true, unique: true },
+    password: { type: Buffer, required: true },
+    role: { type: String, required: true, default: 'user' },
+    addresses: { type: [Schema.Types.Mixed], required: true },
+    name: { type: String },
+    salt: { type: Buffer },
+    resetPasswordToken: { type: String, default: '' }
 });
 
 const virtual = userSchema.virtual('id');
@@ -17,9 +17,9 @@ virtual.get(function () {
 });
 
 userSchema.set('toJSON', {
-    virtuals:true,
-    versionKey:false,
-    transform: function(doc, ret){delete ret._id}
+    virtuals: true,
+    versionKey: false,
+    transform: function (doc, ret) { delete ret._id }
 });
 
 exports.User = mongoose.model('User', userSchema);

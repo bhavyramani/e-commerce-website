@@ -13,8 +13,7 @@ export function fetchProductsByFilters({ filter, sort, pagination }) {
   for (let key in filter) {
     const categoryValues = filter[key];
     if (categoryValues.length > 0) {
-      const lastCategoryValue = categoryValues[categoryValues.length - 1];
-      queryString += `${key}=${lastCategoryValue}&`;
+      queryString += `${key}=${categoryValues}&`;
     }
   }
 
@@ -29,7 +28,8 @@ export function fetchProductsByFilters({ filter, sort, pagination }) {
   return new Promise(async (resolve) => {
     const response = await fetch('http://localhost:8080/products?' + queryString);
     const data = await response.json();
-    resolve({ data });
+    const totalProduct = response.headers.get('X-Total-Count');
+    resolve({ data, totalProduct });
   }
   );
 }
@@ -78,7 +78,7 @@ export function createProduct(product) {
 
 export function updateProduct(product) {
   return new Promise(async (resolve) => {
-    const response = await fetch('http://localhost:8080/products/'+product.id, {
+    const response = await fetch('http://localhost:8080/products/' + product.id, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

@@ -5,6 +5,38 @@ import { useForm } from 'react-hook-form';
 import { Navigate, useParams } from 'react-router-dom';
 import { useAlert } from 'react-alert';
 
+const colors = [
+    {
+        name: 'White',
+        class: 'bg-white',
+        selectedClass: 'ring-gray-400',
+        id: 'white',
+    },
+    {
+        name: 'Gray',
+        class: 'bg-gray-200',
+        selectedClass: 'ring-gray-400',
+        id: 'gray',
+    },
+    {
+        name: 'Black',
+        class: 'bg-gray-900',
+        selectedClass: 'ring-gray-900',
+        id: 'black',
+    },
+];
+
+const sizes = [
+    { name: 'XXS', inStock: true, id: 'xxs' },
+    { name: 'XS', inStock: true, id: 'xs' },
+    { name: 'S', inStock: true, id: 's' },
+    { name: 'M', inStock: true, id: 'm' },
+    { name: 'L', inStock: true, id: 'l' },
+    { name: 'XL', inStock: true, id: 'xl' },
+    { name: '2XL', inStock: true, id: '2xl' },
+    { name: '3XL', inStock: true, id: '3xl' },
+];
+
 const ProductForm = () => {
     const brands = useSelector(selectBrands);
     const categories = useSelector(selectCategories);
@@ -14,8 +46,9 @@ const ProductForm = () => {
     const selectedProduct = useSelector(selectProductById);
     const alert = useAlert();
 
-    const handleDelete = ()=>{
-        const product = {...selectedProduct};
+
+    const handleDelete = () => {
+        const product = { ...selectedProduct };
         product.deleted = true;
         dispatch(updateProductAsync(product));
         alert.success('Product Deleted Successfully');
@@ -36,23 +69,32 @@ const ProductForm = () => {
         setValue('price', selectedProduct.price);
         setValue('discountPercentage', selectedProduct.discountPercentage);
         setValue('stock', selectedProduct.stock);
-        setValue('thumbnail', selectedProduct.images[0]);
+        setValue('brand', selectedProduct.brand);
+        setValue('category', selectedProduct.category);
+        setValue('thumbnail', selectedProduct.thumbnail);
+        if (selectedProduct.images.length > 0)
+            setValue('image1', selectedProduct.images[0]);
         if (selectedProduct.images.length > 1)
-            setValue('image1', selectedProduct.images[1]);
+            setValue('image2', selectedProduct.images[1]);
         if (selectedProduct.images.length > 2)
-            setValue('image2', selectedProduct.images[2]);
-        if (selectedProduct.images.length > 3)
-            setValue('image3', selectedProduct.images[3]);
+            setValue('image3', selectedProduct.images[2]);
+        setValue(
+            'sizes',
+            selectedProduct.sizes.map((size) => size.id)
+        );
+        setValue(
+            'colors',
+            selectedProduct.colors.map((color) => color.id)
+        );
     }, [selectedProduct, params.id, dispatch]);
     return (
         <div>
             <form noValidate
                 onSubmit={handleSubmit((data) => {
                     const product = { ...data }
-                    if(product.images)
+                    if (product.images)
                         delete product.images;
                     product.images = [product.thumbnail];
-                    delete product.thumbnail;
                     for (let i = 1; i <= 3; i++) {
                         product.images.push(product[`image${i}`]);
                         delete product[`image${i}`];
@@ -60,12 +102,14 @@ const ProductForm = () => {
                     product.price = +product.price;
                     product.discountPercentage = +product.discountPercentage;
                     product.stock = +product.stock;
-                    if (params.id){
+                    product.colors = product.colors.map(color => colors.find(clr => clr.id == color));
+                    product.sizes = product.sizes.map(size => sizes.find(sz => sz.id == size));
+                    if (params.id) {
                         product.id = params.id;
                         dispatch(updateProductAsync(product));
                         alert.success('Product Updated Successfully');
                     }
-                    else{
+                    else {
                         dispatch(createProductAsync(product));
                         alert.success('Product Created Successfully');
                         reset();
@@ -260,11 +304,55 @@ const ProductForm = () => {
                                         {
                                             brands.map((brand) => {
                                                 return (
-                                                    <option value={brand.vlaue}>{brand.label}</option>
+                                                    <option key={brand.value} value={brand.vlaue}>{brand.label}</option>
                                                 )
                                             })
                                         }
                                     </select>
+                                </div>
+                            </div>
+
+                            <div className="col-span-full">
+                                <label
+                                    htmlFor="colors"
+                                    className="block text-sm font-medium leading-6 text-gray-900"
+                                >
+                                    Colors
+                                </label>
+                                <div className="mt-2 flex">
+                                    {colors.map((color, index) => (
+                                        <div key={`color-${index}`} className='mr-5 flex items-center gap-2'>
+                                            <input
+                                                type="checkbox"
+                                                {...register('colors', {})}
+                                                key={color.id}
+                                                value={color.id}
+                                            />{' '}
+                                            {color.name}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="col-span-full">
+                                <label
+                                    htmlFor="sizes"
+                                    className="block text-sm font-medium leading-6 text-gray-900"
+                                >
+                                    Sizes
+                                </label>
+                                <div className="mt-2 flex">
+                                    {sizes.map((size, index) => (
+                                        <div key={`size-${index}`} className='mr-5 flex items-center gap-2'>
+                                            <input
+                                                type="checkbox"
+                                                {...register('sizes', {})}
+                                                key={size.id}
+                                                value={size.id}
+                                            />{' '}
+                                            {size.name}
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
 
@@ -280,7 +368,7 @@ const ProductForm = () => {
                                         {
                                             categories.map((category) => {
                                                 return (
-                                                    <option value={category.vlaue}>{category.label}</option>
+                                                    <option key={category.value} value={category.vlaue}>{category.label}</option>
                                                 )
                                             })
                                         }

@@ -94,9 +94,8 @@ exports.resetPasswordRequest = async (req, res) => {
 
 exports.resetPassword = async (req, res) => {
     const { email, password, token } = req.body;
-    
+
     const user = await User.findOne({ email: email, resetPasswordToken: token });
-    console.log(user);
     if (user) {
         const salt = crypto.randomBytes(16);
         crypto.pbkdf2(

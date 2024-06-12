@@ -7,7 +7,7 @@ import { selectUserInfo } from '../../user/userSlice';
 const ProtectedAdmin = ({ children }) => {
     const user = useSelector(selectLoggedInUser);
     const userInfo = useSelector(selectUserInfo);
-    if (!user){
+    if (!user) {
         return <Navigate to='/login' replace={true}></Navigate>
     }
     if (user && userInfo.role != 'admin') {

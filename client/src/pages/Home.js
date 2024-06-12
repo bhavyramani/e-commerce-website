@@ -6,10 +6,10 @@ import Footer from '../features/common/Footer';
 const Home = () => {
   return (
     <div>
-        <Navbar>
-            <ProductList></ProductList>
-        </Navbar>
-        <Footer></Footer>
+      <Navbar>
+        <ProductList></ProductList>
+      </Navbar>
+      <Footer></Footer>
     </div>
   )
 }
